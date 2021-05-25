@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import AdoptionScreen from "../screens/AdoptionScreen";
 import LostFoundScreen from "../screens/LostFoundScreen";
@@ -35,6 +36,7 @@ function RootNavigator() {
                                                onPress={ () => navigation.openDrawer() } />
             })
         } }>
+            <Drawer.Screen name="Login" component={ LoginScreen } />
             <Drawer.Screen name="Home" component={ HomeScreen } />
             <Drawer.Screen name="Adoption" component={ AdoptionScreen } />
             <Drawer.Screen name="Lost&Found" component={ LostFoundScreen } />
