@@ -3,8 +3,15 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'reac
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function LostFoundScreen() {
-    return (
+export default class App extends React.Component {
+    state={
+      name:"",
+      email:"",
+      password:"",
+      passwordverify:""
+    }
+    render(){
+      return (
         <View style={styles.container}>
         <LinearGradient
         // Button Linear Gradient
@@ -16,28 +23,57 @@ export default function LostFoundScreen() {
         colors={['#071a52','#071a52' , '#086972', '#17b978', '#a7ff83']}
         style={styles.circle2}>
         </LinearGradient>
-        <Text style={styles.lostText}> Lost & Found </Text>
-        <TouchableOpacity style={styles.contBtn}>
-            <Text style={styles.continue}>Create a Post</Text>
-          </TouchableOpacity>
+        
         <View style={styles.container2}>
+          
+          <Image source = {require('../assets/petzone.png')}
+          style = {styles.logo} />
+
+          <View style={styles.inputView} >
+            <TextInput  
+              style={styles.inputText}
+              placeholder="Full Name:" 
+              placeholderTextColor="#ffffff"
+              onChangeText={text => this.setState({name:text})}/>
           </View>
-            <View style={styles.rectangle}>
-                <Text> Text info </Text>
-            </View>
-
+          <View style={styles.inputView} >
+            <TextInput  
+              secureTextEntry = {true}
+              style={styles.inputText}
+              placeholder="Email:" 
+              placeholderTextColor="#ffffff"
+              onChangeText={text => this.setState({email:text})}/>
+          </View>
+          <View style={styles.inputView} >
+            <TextInput  
+              secureTextEntry = {true}
+              style={styles.inputText}
+              placeholder="Password:" 
+              placeholderTextColor="#ffffff"
+              onChangeText={text => this.setState({password:text})}/>
+          </View>
+          <View style={styles.inputView} >
+            <TextInput  
+              secureTextEntry = {true}
+              style={styles.inputText}
+              placeholder="Verify Password:" 
+              placeholderTextColor="#ffffff"
+              onChangeText={text => this.setState({passwordverify:text})}/>
+          </View>
+          <TouchableOpacity>
+            <Text style={styles.login}>You have an account? Login.</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.loginBtn}>
+            <Text style={styles.loginText}>SignUp</Text>
+          </TouchableOpacity>
+     
+          </View>
         </View>
-    );
-}
-
-const styles = StyleSheet.create({
-    rectangle: {
-        width: 350,
-        height: 200,
-        backgroundColor: '#ffffff',
-        borderRadius: 20,
-        top: -100,
-      },
+      );
+    }
+  }
+  
+  const styles = StyleSheet.create({
     circle: {
         width: 500,
         height: 400,
@@ -49,7 +85,7 @@ const styles = StyleSheet.create({
      },
      circle2: {
         width: 490,
-        height: 600,
+        height: 400,
         borderRadius: 200,
         opacity: 1,
         transform: [{ scaleY: 2 }],
@@ -73,7 +109,7 @@ const styles = StyleSheet.create({
       width: 240,
       height: 194,
       position: 'absolute',
-      top: -200
+      top: -230
     },
     inputView:{
       width:"80%",
@@ -88,9 +124,10 @@ const styles = StyleSheet.create({
       height:50,
       color:"white"
     },
-    forgot:{
-      color:"white",
-      fontSize:11
+    login:{
+      color:"black",
+      fontSize:16,
+      top: 230
     },
     loginBtn:{
       width:"50%",
@@ -99,8 +136,9 @@ const styles = StyleSheet.create({
       height:50,
       alignItems:"center",
       justifyContent:"center",
-      marginTop:40,
-      marginBottom:10
+      marginTop:10,
+      marginBottom:10,
+      top: 40
     },
     contBtn:{
         width:"50%",
@@ -110,14 +148,10 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         position: 'absolute',
-        top: 70
+        top: 470
       },
-    lostText:{
-      color:"#ffffff",
-      top: 20,
-      fontSize: 20,
-      position: "absolute",
-      fontWeight: 'bold'
+    loginText:{
+      color:"#071a52"
     },
     continue:{
         fontSize: 16,
