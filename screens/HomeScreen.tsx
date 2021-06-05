@@ -4,6 +4,8 @@ import MapView, { Circle } from 'react-native-maps';
 import { useEffect, useState, useRef } from "react";
 import BottomSheet from 'reanimated-bottom-sheet';
 import BottomSheetBehavior from "reanimated-bottom-sheet";
+import NotificationForm from "../components/home/NotificationForm";
+import * as Location from 'expo-location';
 
 type CircleProp = {
     latitude: number,
@@ -13,8 +15,10 @@ type CircleProp = {
 
 export default function HomeScreen() {
 
-
     const [circles, setCircles] = useState<CircleProp[]>();
+    const [location, setLocation] = useState<Location.LocationObject | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string>('');
+
     const sheetRef = useRef<BottomSheetBehavior>(null);
 
     const onPressHandler = () => {
@@ -24,7 +28,7 @@ export default function HomeScreen() {
 
     const renderInner = () => (
         <View style={ styles.panel }>
-            <Text style={ styles.panelTitle }>Notification Form</Text>
+            <NotificationForm />
         </View>
     )
 
@@ -36,30 +40,60 @@ export default function HomeScreen() {
         </View>
     )
 
+
     useEffect(() => {
         setCircles([
             { latitude: 40.977438, longitude: 37.892084, fillColor: 'rgba(0,255,0,0.2)' },
             { latitude: 40.977122, longitude: 37.894220, fillColor: 'rgba(255,0,0,0.2)' }
-        ])
+        ]);
+
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return;
+            }
+
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+        })();
     }, []);
 
     return (
         <>
             <View style={ styles.container }>
-                <MapView style={ styles.map }
-                         initialRegion={ {
-                             latitude: 40.978649,
-                             longitude: 37.892981,
-                             latitudeDelta: 0.001,
-                             longitudeDelta: 0.001,
-                         } }>
-                    { circles?.map((circle, index) => <Circle
-                        key={ index }
-                        center={ { latitude: circle.latitude, longitude: circle.longitude } }
-                        radius={ 50 }
-                        fillColor={ circle.fillColor } />
-                    ) }
-                </MapView>
+                { location ? <MapView style={ styles.map }
+                                      showsUserLocation={ true }
+                                      showsMyLocationButton={ true }
+                                      initialRegion={ {
+                                          latitude: location.coords.latitude,
+                                          longitude: location.coords.longitude,
+                                          latitudeDelta: 0.001,
+                                          longitudeDelta: 0.001,
+                                      } }>
+                        { circles?.map((circle, index) => <Circle
+                            key={ index }
+                            center={ { latitude: circle.latitude, longitude: circle.longitude } }
+                            radius={ 50 }
+                            fillColor={ circle.fillColor } />
+                        ) }
+                    </MapView> :
+                    <MapView style={ styles.map }
+                             showsUserLocation={ true }
+                             showsMyLocationButton={ true }
+                             initialRegion={ {
+                                 latitude: 47.4959997,
+                                 longitude: 19.0692977,
+                                 latitudeDelta: 0.001,
+                                 longitudeDelta: 0.001,
+                             } }>
+                        { circles?.map((circle, index) => <Circle
+                            key={ index }
+                            center={ { latitude: circle.latitude, longitude: circle.longitude } }
+                            radius={ 50 }
+                            fillColor={ circle.fillColor } />
+                        ) }
+                    </MapView> }
                 <TouchableOpacity
                     style={ styles.notifyButton }
                     onPress={ onPressHandler }
@@ -107,11 +141,7 @@ const styles = StyleSheet.create({
     panel: {
         height: 600,
         padding: 20,
-        backgroundColor: '#f7f5eee8',
-    },
-    panelTitle: {
-        fontSize: 27,
-        height: 35,
+        backgroundColor: '#f7f5eee8'
     },
     header: {
         backgroundColor: '#f7f5eee8',
