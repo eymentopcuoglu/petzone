@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, View, Dimensions, Button, Text, TextInput, TouchableOpacity } from 'react-native';
-import MapView, { Circle } from 'react-native-maps';
+import { StyleSheet, View, Dimensions, Text, TouchableOpacity } from 'react-native';
+import MapView, { Circle, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useEffect, useState, useRef } from "react";
 import BottomSheet from 'reanimated-bottom-sheet';
 import BottomSheetBehavior from "reanimated-bottom-sheet";
@@ -16,10 +16,12 @@ type CircleProp = {
 export default function HomeScreen() {
 
     const [circles, setCircles] = useState<CircleProp[]>();
+
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const [errorMsg, setErrorMsg] = useState<string>('');
 
     const sheetRef = useRef<BottomSheetBehavior>(null);
+    const mapRef = useRef<MapView>(null);
 
     const onPressHandler = () => {
         if (sheetRef && sheetRef.current)
@@ -47,6 +49,7 @@ export default function HomeScreen() {
             { latitude: 40.977122, longitude: 37.894220, fillColor: 'rgba(255,0,0,0.2)' }
         ]);
 
+        // Get the location of the user and animate towards it
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
@@ -56,44 +59,37 @@ export default function HomeScreen() {
 
             let location = await Location.getCurrentPositionAsync({});
             setLocation(location);
+            if (mapRef && mapRef.current)
+                mapRef.current.animateToRegion({
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.001,
+                    longitudeDelta: 0.001,
+                }, 1000);
         })();
     }, []);
 
     return (
         <>
             <View style={ styles.container }>
-                { location ? <MapView style={ styles.map }
-                                      showsUserLocation={ true }
-                                      showsMyLocationButton={ true }
-                                      initialRegion={ {
-                                          latitude: location.coords.latitude,
-                                          longitude: location.coords.longitude,
-                                          latitudeDelta: 0.001,
-                                          longitudeDelta: 0.001,
-                                      } }>
-                        { circles?.map((circle, index) => <Circle
-                            key={ index }
-                            center={ { latitude: circle.latitude, longitude: circle.longitude } }
-                            radius={ 50 }
-                            fillColor={ circle.fillColor } />
-                        ) }
-                    </MapView> :
-                    <MapView style={ styles.map }
-                             showsUserLocation={ true }
-                             showsMyLocationButton={ true }
-                             initialRegion={ {
-                                 latitude: 47.4959997,
-                                 longitude: 19.0692977,
-                                 latitudeDelta: 0.001,
-                                 longitudeDelta: 0.001,
-                             } }>
-                        { circles?.map((circle, index) => <Circle
-                            key={ index }
-                            center={ { latitude: circle.latitude, longitude: circle.longitude } }
-                            radius={ 50 }
-                            fillColor={ circle.fillColor } />
-                        ) }
-                    </MapView> }
+                <MapView provider={ PROVIDER_GOOGLE }
+                         style={ styles.map }
+                         ref={ mapRef }
+                         showsUserLocation={ true }
+                         showsMyLocationButton={ true }
+                         initialRegion={ {
+                             latitude: 47.4962647,
+                             longitude: 19.0674436,
+                             latitudeDelta: 0.001,
+                             longitudeDelta: 0.001,
+                         } }>
+                    { circles?.map((circle, index) => <Circle
+                        key={ index }
+                        center={ { latitude: circle.latitude, longitude: circle.longitude } }
+                        radius={ 50 }
+                        fillColor={ circle.fillColor } />
+                    ) }
+                </MapView>
                 <TouchableOpacity
                     style={ styles.notifyButton }
                     onPress={ onPressHandler }
@@ -122,8 +118,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     map: {
+        flex: 1,
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+        height: Dimensions.get('window').height
     },
     notifyButton: {
         position: "absolute",

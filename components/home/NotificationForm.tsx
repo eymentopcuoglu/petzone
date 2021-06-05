@@ -13,8 +13,9 @@ export default function NotificationForm() {
     const [address, setAddress] = useState<{ longitude: number, latitude: number }>();
 
     return (
-        <ScrollView contentContainerStyle={ { flexGrow: 1 } }
-                    keyboardShouldPersistTaps='handled'
+        <ScrollView
+            contentContainerStyle={ { flexGrow: 1 } }
+            keyboardShouldPersistTaps='handled'
         >
 
             <Text style={ styles.panelTitle }>Notification Form</Text>
