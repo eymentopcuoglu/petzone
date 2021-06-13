@@ -11,8 +11,18 @@ import EmergencyScreen from "../screens/EmergencyScreen";
 import LatestRecordsScreen from "../screens/LatestRecordsScreen";
 import { Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { useAppDispatch } from "../hooks";
+import { useEffect } from "react";
+import { getInstitutions } from "../store/features/institution";
 
 export default function Navigation() {
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(getInstitutions());
+    }, []);
+
     return (
         <NavigationContainer>
             <RootNavigator />

@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RegistrationRequest, Status } from '../../types';
+import api from '../../api';
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -9,25 +11,18 @@ export const authSlice = createSlice({
         phoneNumber: '',
         email: '',
         isVerified: false,
-        createdAt: null
+        createdAt: null,
+        status: Status.IDLE,
+        error: null
     },
-    reducers: {
-        increment: state => {
-            // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the immer library,
-            // which detects changes to a "draft state" and produces a brand new
-            // immutable state based off those changes
-            state.value += 1
-        },
-        decrement: state => {
-            state.value -= 1
-        },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload
-        }
-    }
+    reducers: {}
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const registerUser = createAsyncThunk('auth/register', async (registrationRequest: RegistrationRequest) => {
+    return await api.auth.register(registrationRequest.name, registrationRequest.surname, registrationRequest.email,
+        registrationRequest.phoneNumber, registrationRequest.password);
+});
+
+// export const { increment, decrement, incrementByAmount } = counterSlice.actions
 
 export default authSlice.reducer
