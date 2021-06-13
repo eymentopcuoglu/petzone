@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useAppSelector } from '../hooks';
 import { Status } from "../types";
-import { useEffect } from 'react';
-import { getInstitutions } from '../store/features/institution';
 
 export default function DonationScreen() {
 

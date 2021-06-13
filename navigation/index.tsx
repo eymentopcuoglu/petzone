@@ -11,9 +11,10 @@ import EmergencyScreen from "../screens/EmergencyScreen";
 import LatestRecordsScreen from "../screens/LatestRecordsScreen";
 import { Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { useEffect } from "react";
 import { getInstitutions } from "../store/features/institution";
+import { createStackNavigator } from '@react-navigation/stack';
 
 export default function Navigation() {
 
@@ -31,8 +32,10 @@ export default function Navigation() {
 }
 
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
-function RootNavigator() {
+// TODO: CHANGE
+const TestDrawer = () => {
     return (
         <Drawer.Navigator initialRouteName="Home" screenOptions={ ({ navigation }) => {
             return ({
@@ -43,12 +46,11 @@ function RootNavigator() {
                                              source={ require('../assets/petzone.png') } />,
                 headerRight: props => <Ionicons name="person-circle-outline" size={ 36 } color="white"
                                                 style={ { marginRight: 10 } } />,
-                headerLeft: props => <Ionicons name="ios-menu" size={ 36 } color="white" style={ { marginLeft: 10 } }
+                headerLeft: props => <Ionicons name="ios-menu" size={ 36 } color="white"
+                                               style={ { marginLeft: 10 } }
                                                onPress={ () => navigation.openDrawer() } />
             })
         } }>
-            <Drawer.Screen name="Login" component={ LoginScreen } />
-            <Drawer.Screen name="SignUp" component={ SignUpScreen } />
             <Drawer.Screen name="Home" component={ HomeScreen } />
             <Drawer.Screen name="Adoption" component={ AdoptionScreen } />
             <Drawer.Screen name="Lost&Found" component={ LostFoundScreen } />
@@ -56,5 +58,29 @@ function RootNavigator() {
             <Drawer.Screen name="Latest Records" component={ LatestRecordsScreen } />
             <Drawer.Screen name="Emergency" component={ EmergencyScreen } />
         </Drawer.Navigator>
+    )
+}
+
+function RootNavigator() {
+
+    const { isAuthenticated } = useAppSelector(state => state.auth);
+
+
+    return (
+        <Stack.Navigator initialRouteName='Login' screenOptions={ ({ navigation }) => {
+            return ({
+                headerShown: false
+            })
+        } }>
+            { isAuthenticated ? (
+                <Stack.Screen name='Drawer' component={ TestDrawer } />
+            ) : (
+                <>
+                    <Stack.Screen name="Login" component={ LoginScreen } />
+                    <Stack.Screen name="SignUp" component={ SignUpScreen } />
+                    <Stack.Screen name='Drawer' component={ TestDrawer } />
+                </>
+            ) }
+        </Stack.Navigator>
     );
 }
