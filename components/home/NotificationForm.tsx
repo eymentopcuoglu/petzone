@@ -1,102 +1,129 @@
 import * as React from 'react';
-import { Dimensions, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
-import { useState } from "react";
+import { Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
+import * as Location from "expo-location";
+import api from '../../api';
+import { useAppSelector } from "../../hooks";
 
+type NotificationFormProps = {
+    location: Location.LocationObject | null
+}
 
-export default function NotificationForm() {
-    const [postType, setPostType] = useState<'Food' | 'Water' | 'Food and Water' | 'Need of help'>();
-    const [noOfPets, setNoOfPets] = useState<number>();
-    const [title, setTitle] = useState<string>();
-    const [description, setDescription] = useState<string>();
-    const [petType, setPetType] = useState<string>();
-    const [address, setAddress] = useState<{ longitude: number, latitude: number }>();
+export default function NotificationForm({ location }: NotificationFormProps) {
+    const [postType, setPostType] = useState<'Food' | 'Water' | 'Food and Water' | 'Need of help' | ''>('');
+    const [noOfPets, setNoOfPets] = useState<number>(0);
+    const [title, setTitle] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const [petType, setPetType] = useState<string>('');
+
+    const { isAuthenticated, userId, token } = useAppSelector(state => state.auth);
+
+    const handleSubmit = async () => {
+        if (isAuthenticated) {
+            if (location) {
+                try {
+                    const response = await api.post.createNotificationPost(userId, description, title, petType, postType, location.coords.longitude, location.coords.latitude, noOfPets, token);
+                } catch (e) {
+                    Alert.alert('Error', 'Please try again');
+                }
+            } else {
+                Alert.alert('Location does not present', 'Please enable location services to submit a new post');
+            }
+        } else {
+            Alert.alert('Authentication', 'You must login to submit a new post');
+        }
+    }
 
     return (
-        <ScrollView
-            contentContainerStyle={ { flexGrow: 1 } }
-            keyboardShouldPersistTaps='handled'
-        >
-
-            <Text style={ styles.panelTitle }>Notification Form</Text>
-
-            <Text style={ styles.label }>Post type</Text>
-            <RNPickerSelect
-                onValueChange={ (value) => setPostType(value) }
-                items={ [
-                    { key: 'F', label: 'Food', value: 'F' },
-                    { key: 'W', label: 'Water', value: 'W' },
-                    { key: 'FW', label: 'Food and Water', value: 'FW' },
-                    { key: 'NH', label: 'Need of help', value: 'NH' },
-                ] }
-                placeholder={ {
-                    key: 'Place Holder',
-                    label: 'Select a post type...',
-                    value: null,
-                    color: '#9EA0A4',
-                } }
-                style={ pickerSelectStyles }
-            />
-
-            <Text style={ styles.label }>Number of Pets</Text>
-            <TextInput
-                style={
-                    Platform.OS === 'ios'
-                        ? pickerSelectStyles.inputIOS
-                        : pickerSelectStyles.inputAndroid
-                }
-                onChangeText={ (value) => setNoOfPets(parseInt(value)) }
-                value={ noOfPets ? noOfPets.toString() : '' }
-                placeholder="Number of Pets"
-                keyboardType="numeric"
-            />
-
-            <Text style={ styles.label }>Title</Text>
-            <TextInput
-                style={
-                    Platform.OS === 'ios'
-                        ? pickerSelectStyles.inputIOS
-                        : pickerSelectStyles.inputAndroid
-                }
-                onChangeText={ (value) => setTitle(value) }
-                value={ title }
-                placeholder="Title"
-            />
-
-            <Text style={ styles.label }>Description</Text>
-            <TextInput
-                style={
-                    Platform.OS === 'ios'
-                        ? pickerSelectStyles.inputIOS
-                        : pickerSelectStyles.inputAndroid
-                }
-                onChangeText={ (value) => setDescription(value) }
-                value={ description }
-                placeholder="Description"
-            />
-
-            <Text style={ styles.label }>Type of Pet</Text>
-            <TextInput
-                style={
-                    Platform.OS === 'ios'
-                        ? pickerSelectStyles.inputIOS
-                        : pickerSelectStyles.inputAndroid
-                }
-                onChangeText={ (value) => setPetType(value) }
-                value={ petType }
-                placeholder="Type of Pet"
-            />
-
-            <TouchableOpacity
-                style={ styles.submitButton }
+        <View style={ styles.panel }>
+            <ScrollView
+                contentContainerStyle={ { flexGrow: 1 } }
+                keyboardShouldPersistTaps='handled'
             >
-                <Text style={ styles.submitButtonText }>Submit</Text>
-            </TouchableOpacity>
-        </ScrollView>
+                <Text style={ styles.panelTitle }>Notification Form</Text>
+
+                <Text style={ styles.label }>Post type</Text>
+                <RNPickerSelect
+                    onValueChange={ (value) => setPostType(value) }
+                    items={ [
+                        { key: 'F', label: 'Food', value: 'F' },
+                        { key: 'W', label: 'Water', value: 'W' },
+                        { key: 'FW', label: 'Food and Water', value: 'FW' },
+                        { key: 'NH', label: 'Need of help', value: 'NH' },
+                    ] }
+                    placeholder={ {
+                        key: 'Place Holder',
+                        label: 'Select a post type...',
+                        value: null,
+                        color: '#9EA0A4',
+                    } }
+                    style={ styles }
+                />
+
+                <Text style={ styles.label }>Number of Pets</Text>
+                <TextInput
+                    style={
+                        Platform.OS === 'ios'
+                            ? styles.inputIOS
+                            : styles.inputAndroid
+                    }
+                    onChangeText={ (value) => setNoOfPets(parseInt(value)) }
+                    value={ noOfPets ? noOfPets.toString() : '' }
+                    placeholder="Number of Pets"
+                    keyboardType="numeric"
+                />
+
+                <Text style={ styles.label }>Title</Text>
+                <TextInput
+                    style={
+                        Platform.OS === 'ios'
+                            ? styles.inputIOS
+                            : styles.inputAndroid
+                    }
+                    onChangeText={ (value) => setTitle(value) }
+                    value={ title }
+                    placeholder="Title"
+                />
+
+                <Text style={ styles.label }>Description</Text>
+                <TextInput
+                    style={
+                        Platform.OS === 'ios'
+                            ? styles.inputIOS
+                            : styles.inputAndroid
+                    }
+                    onChangeText={ (value) => setDescription(value) }
+                    value={ description }
+                    placeholder="Description"
+                />
+
+                <Text style={ styles.label }>Type of Pet</Text>
+                <TextInput
+                    style={
+                        Platform.OS === 'ios'
+                            ? styles.inputIOS
+                            : styles.inputAndroid
+                    }
+                    onChangeText={ (value) => setPetType(value) }
+                    value={ petType }
+                    placeholder="Type of Pet"
+                />
+
+                <TouchableOpacity style={ styles.submitButton } onPress={ handleSubmit }>
+                    <Text style={ styles.submitButtonText }>Submit</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
+    panel: {
+        height: 600,
+        padding: 20,
+        backgroundColor: '#f7f5eee8'
+    },
     container: {
         flex: 1,
         alignItems: 'center',
@@ -117,9 +144,6 @@ const styles = StyleSheet.create({
     submitButtonText: {
         color: 'white'
     },
-});
-
-const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
         fontSize: 16,
         paddingVertical: 12,

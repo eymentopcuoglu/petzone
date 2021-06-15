@@ -1,4 +1,4 @@
-import API_URL from '../../constants';
+import { API_URL } from '../../constants';
 
 export default async function createNotificationPost(userIdentifier: number, description: string, title: string, petType: string,
                                                      postType: string, longitude: number, latitude: number,

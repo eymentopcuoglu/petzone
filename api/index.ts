@@ -7,6 +7,7 @@ import createImagedPost from './post/createImagedPost';
 import createNotificationPost from './post/createNotificationPost';
 import deletePost from './post/deletePost';
 import getLatestPosts from './post/getLatestPosts';
+import getNotificationPosts from './post/getNotificationPosts';
 import updateUser from './user/updateUser';
 
 export default {
@@ -23,7 +24,8 @@ export default {
         createImagedPost,
         createNotificationPost,
         deletePost,
-        getLatestPosts
+        getLatestPosts,
+        getNotificationPosts
     },
     user: {
         updateUser

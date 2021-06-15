@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { getInstitutions } from "../store/features/institution";
 import { createStackNavigator } from '@react-navigation/stack';
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 export default function Navigation() {
 
@@ -46,7 +47,8 @@ const TestDrawer = () => {
                 headerTitle: props => <Image style={ { width: 70, height: 57 } }
                                              source={ require('../assets/petzone.png') } />,
                 headerRight: props => <Ionicons name="person-circle-outline" size={ 36 } color="white"
-                                                style={ { marginRight: 10 } } />,
+                                                style={ { marginRight: 10 } }
+                                                onPress={ () => navigation.navigate('Profile') } />,
                 headerLeft: props => <Ionicons name="ios-menu" size={ 36 } color="white"
                                                style={ { marginLeft: 10 } }
                                                onPress={ () => navigation.openDrawer() } />
@@ -74,7 +76,10 @@ function RootNavigator() {
             })
         } }>
             { isAuthenticated ? (
-                <Stack.Screen name='Drawer' component={ TestDrawer } />
+                <>
+                    <Stack.Screen name='Drawer' component={ TestDrawer } />
+                    <Stack.Screen name='Profile' component={ ProfileScreen } />
+                </>
             ) : (
                 <>
                     <Stack.Screen name="Login" component={ LoginScreen } />
@@ -82,6 +87,7 @@ function RootNavigator() {
                     <Stack.Screen name='ForgotPassword' component={ ForgotPasswordScreen }
                                   options={ { headerShown: true } } />
                     <Stack.Screen name='Drawer' component={ TestDrawer } />
+                    <Stack.Screen name='Profile' component={ ProfileScreen } />
                 </>
             ) }
         </Stack.Navigator>

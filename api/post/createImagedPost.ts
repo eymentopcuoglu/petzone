@@ -1,4 +1,4 @@
-import API_URL from '../../constants';
+import { API_URL } from '../../constants';
 
 export default async function createImagedPost(userIdentifier: number, description: string, title: string, petType: string,
                                                postType: string, image: Blob, isCompleted: boolean, token: string) {

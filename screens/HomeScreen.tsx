@@ -4,8 +4,11 @@ import MapView, { Circle, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useEffect, useState, useRef } from "react";
 import BottomSheet from 'reanimated-bottom-sheet';
 import BottomSheetBehavior from "reanimated-bottom-sheet";
-import NotificationForm from "../components/home/NotificationForm";
+import NotificationForm from '../components/home/NotificationForm';
 import * as Location from 'expo-location';
+import api from '../api';
+import { NotificationPost } from "../types";
+import BottomSheetHeader from "../components/home/BottomSheetHeader";
 
 type CircleProp = {
     latitude: number,
@@ -16,6 +19,7 @@ type CircleProp = {
 export default function HomeScreen() {
 
     const [circles, setCircles] = useState<CircleProp[]>();
+    const [notificationPosts, setNotificationPosts] = useState<NotificationPost[]>([]);
 
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const [errorMsg, setErrorMsg] = useState<string>('');
@@ -28,26 +32,7 @@ export default function HomeScreen() {
             sheetRef.current.snapTo(0);
     }
 
-    const renderInner = () => (
-        <View style={ styles.panel }>
-            <NotificationForm />
-        </View>
-    )
-
-    const renderHeader = () => (
-        <View style={ styles.header }>
-            <View style={ styles.panelHeader }>
-                <View style={ styles.panelHandle } />
-            </View>
-        </View>
-    )
-
-
     useEffect(() => {
-        setCircles([
-            { latitude: 40.977438, longitude: 37.892084, fillColor: 'rgba(0,255,0,0.2)' },
-            { latitude: 40.977122, longitude: 37.894220, fillColor: 'rgba(255,0,0,0.2)' }
-        ]);
 
         // Get the location of the user and animate towards it
         (async () => {
@@ -66,6 +51,9 @@ export default function HomeScreen() {
                     latitudeDelta: 0.001,
                     longitudeDelta: 0.001,
                 }, 1000);
+
+            const notificationPosts = await api.post.getNotificationPosts();
+            setNotificationPosts([...notificationPosts]);
         })();
     }, []);
 
@@ -83,11 +71,11 @@ export default function HomeScreen() {
                              latitudeDelta: 0.001,
                              longitudeDelta: 0.001,
                          } }>
-                    { circles?.map((circle, index) => <Circle
+                    { notificationPosts?.map((notificationPost, index) => <Circle
                         key={ index }
-                        center={ { latitude: circle.latitude, longitude: circle.longitude } }
+                        center={ { latitude: notificationPost.latitude, longitude: notificationPost.longitude } }
                         radius={ 50 }
-                        fillColor={ circle.fillColor } />
+                        fillColor='rgba(0,255,0,0.2)' />
                     ) }
                 </MapView>
                 <TouchableOpacity
@@ -101,8 +89,8 @@ export default function HomeScreen() {
                 // @ts-ignore
                 ref={ sheetRef }
                 snapPoints={ [500, 250, 0] }
-                renderContent={ renderInner }
-                renderHeader={ renderHeader }
+                renderContent={ () => <NotificationForm location={ location } /> }
+                renderHeader={ BottomSheetHeader }
                 initialSnap={ 2 }
             />
         </>

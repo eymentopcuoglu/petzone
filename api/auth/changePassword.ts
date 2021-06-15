@@ -1,4 +1,4 @@
-import API_URL from '../../constants';
+import { API_URL } from '../../constants';
 
 export default async function login(newPassword: string, token: string) {
     const response = await fetch(API_URL + '/auth/change_password', {

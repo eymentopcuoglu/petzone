@@ -17,3 +17,24 @@ export interface Institution {
     institutionType: string,
     address: string
 }
+
+interface Post {
+    id: number,
+    userId: number,
+    description: string,
+    petType: string,
+    postType: string,
+    createdAt: Date,
+    updatedAt: Date
+}
+
+export interface NotificationPost extends Post {
+    longitude: number,
+    latitude: number,
+    noOfPets: number
+}
+
+export interface ImagedPost extends Post {
+    image: Blob,
+    isCompleted: boolean
+}

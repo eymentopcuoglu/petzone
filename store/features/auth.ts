@@ -6,6 +6,8 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState: {
         isAuthenticated: false,
+        token: '',
+        userId: -1,
         name: '',
         surname: '',
         phoneNumber: '',

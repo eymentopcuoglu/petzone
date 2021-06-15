@@ -76,7 +76,7 @@ export default function SignUpScreen({ navigation }: any) {
                         placeholderTextColor="#ffffff"
                         onChangeText={ text => setState({ ...state, passwordverify: text }) } />
                 </View>
-                <TouchableOpacity onPress={ () => navigation.push('Login') }>
+                <TouchableOpacity onPress={ () => navigation.navigate('Login') }>
                     <Text style={ styles.login }>You have an account? Login.</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={ styles.loginBtn }>
@@ -142,7 +142,8 @@ const styles = StyleSheet.create({
     login: {
         color: "black",
         fontSize: 16,
-        top: 230
+        top: 230,
+        textDecorationLine: 'underline'
     },
     loginBtn: {
         width: "50%",
