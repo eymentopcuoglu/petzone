@@ -1,32 +1,61 @@
-import * as React from 'react';
+import  React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Button, Icon, Left, Body } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function LostFoundScreen() {
     return (
-        <View style={styles.container}>
-        <LinearGradient
-        // Button Linear Gradient
-        colors={['#a7ff83', '#17b978','#a7ff83']}
-        style={styles.circle}>
-        </LinearGradient>
-        <LinearGradient
-        // Button Linear Gradient
-        colors={['#071a52','#071a52' , '#086972', '#17b978', '#a7ff83']}
-        style={styles.circle2}>
-        </LinearGradient>
-        <Text style={styles.lostText}> Lost & Found </Text>
-        <TouchableOpacity style={styles.contBtn}>
+      <Container style={styles.container}>
+        
+          <LinearGradient
+            colors={['#a7ff83', '#17b978','#a7ff83']}
+            style={styles.circle}>
+          </LinearGradient>
+
+          <LinearGradient
+            colors={['#071a52','#071a52' , '#086972', '#17b978', '#a7ff83']}
+            style={styles.circle2}>
+          </LinearGradient>
+          <Text style={styles.lostText}> Lost & Found </Text>
+          <TouchableOpacity style={styles.contBtn}>
             <Text style={styles.continue}>Create a Post</Text>
           </TouchableOpacity>
-        <View style={styles.container2}>
-          </View>
-            <View style={styles.rectangle}>
-                <Text> Text info </Text>
-            </View>
-
-        </View>
+          
+          <Content>
+          <Card style={{flex: 0, width:380, top: 180, height:550}}>
+            <CardItem>
+              <Left>
+                <Thumbnail source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gnome-stock_person.svg/1200px-Gnome-stock_person.svg.png'}} />
+                <Body>
+                  <Text>Person Name</Text>
+                  <Text>DD/MM/YY</Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem >
+              <Body>
+              <Grid>
+                <Image source={{uri: 'https://ichef.bbci.co.uk/news/976/cpsprodpb/C1F7/production/_118555694_cats_02.jpg'}} style={{height: 200, width: 200, flex: 1}}/>
+                <Image source={{uri: 'https://www.yarrah.com/en/wp-content/uploads/sites/10/2019/03/CAT_header-2.jpg'}} style={{height: 200, width: 200, flex: 1}}/>
+              </Grid> 
+                <Text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor dui in orci suscipit pellentesque.
+                </Text>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Button transparent textStyle={{color: '#87838B'}}>
+                  <Icon name="paw" />
+                  <Text>699 Paws</Text>
+                </Button>
+              </Left>
+            </CardItem>
+          </Card>
+          </Content>
+          </Container>     
     );
 }
 
@@ -123,5 +152,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color:"#086972",
         fontWeight: 'bold'
-    }
+    },
+    
   });
