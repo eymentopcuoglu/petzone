@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function LoginScreen({ navigation }: any) {
+export default function ForgotPasswordScreen({ navigation }: any) {
 
     return (
         <View style={ styles.container }>
@@ -27,34 +27,10 @@ export default function LoginScreen({ navigation }: any) {
                         style={ styles.inputText }
                         placeholder="Email:"
                         placeholderTextColor="#ffffff"
-                        // onChangeText={ text => setState({ email: text }) }
                     />
                 </View>
-                <View style={ styles.inputView }>
-                    <TextInput
-                        secureTextEntry={ true }
-                        style={ styles.inputText }
-                        placeholder="Password:"
-                        placeholderTextColor="#ffffff"
-                        // onChangeText={ text => this.setState({ password: text }) }
-                    />
-                </View>
-
                 <TouchableOpacity style={ styles.loginBtn }>
-                    <Text style={ styles.loginText }>LOGIN</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={ () => navigation.push('SignUp') }>
-                    <Text style={ { color: "white", textDecorationLine: 'underline' } }>Don't have an account?
-                        Register</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={ () => navigation.push('ForgotPassword') }>
-                    <Text style={ styles.forgot }>Forgot Password</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={ styles.contBtn } onPress={ () => navigation.push('Drawer') }>
-                    <Text style={ styles.continue }>Continue as a Guest</Text>
+                    <Text style={ styles.loginText }>Send email</Text>
                 </TouchableOpacity>
 
             </View>
@@ -105,8 +81,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#086972",
         borderRadius: 25,
         height: 50,
-        marginTop: 10,
-        marginBottom: 20,
+        marginTop: 20,
         justifyContent: "center",
         padding: 20
     },
@@ -116,9 +91,7 @@ const styles = StyleSheet.create({
     },
     forgot: {
         color: "white",
-        fontSize: 12,
-        textDecorationLine: 'underline',
-        marginTop: 10
+        fontSize: 11
     },
     loginBtn: {
         width: "50%",
@@ -127,8 +100,8 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 10,
-        marginBottom: 20
+        marginTop: 40,
+        marginBottom: 10
     },
     contBtn: {
         width: "50%",

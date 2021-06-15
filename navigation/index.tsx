@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { useEffect } from "react";
 import { getInstitutions } from "../store/features/institution";
 import { createStackNavigator } from '@react-navigation/stack';
+import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 
 export default function Navigation() {
 
@@ -78,6 +79,8 @@ function RootNavigator() {
                 <>
                     <Stack.Screen name="Login" component={ LoginScreen } />
                     <Stack.Screen name="SignUp" component={ SignUpScreen } />
+                    <Stack.Screen name='ForgotPassword' component={ ForgotPasswordScreen }
+                                  options={ { headerShown: true } } />
                     <Stack.Screen name='Drawer' component={ TestDrawer } />
                 </>
             ) }
