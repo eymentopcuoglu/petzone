@@ -9,6 +9,7 @@ import LostFoundScreen from "../screens/LostFoundScreen";
 import DonationScreen from "../screens/DonationScreen";
 import EmergencyScreen from "../screens/EmergencyScreen";
 import LatestRecordsScreen from "../screens/LatestRecordsScreen";
+import CreatePostScreen from "../screens/CreatePostScreen";
 import { Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -60,6 +61,7 @@ const TestDrawer = () => {
             <Drawer.Screen name="Donation" component={ DonationScreen } />
             <Drawer.Screen name="Latest Records" component={ LatestRecordsScreen } />
             <Drawer.Screen name="Emergency" component={ EmergencyScreen } />
+            <Drawer.Screen name="Create Post" component={ CreatePostScreen } />
         </Drawer.Navigator>
     )
 }
