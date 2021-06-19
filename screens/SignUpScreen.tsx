@@ -30,6 +30,7 @@ export default function SignUpScreen({ navigation }: any) {
                 <Image source={ require('../assets/petzone.png') }
                        style={ styles.logo } />
 
+                <View style={ styles.inputViewName }>
                 <View style={ styles.inputView }>
                     <TextInput
                         style={ styles.inputText }
@@ -37,13 +38,15 @@ export default function SignUpScreen({ navigation }: any) {
                         placeholderTextColor="#ffffff"
                         onChangeText={ text => setState({ ...state, name: text }) } />
                 </View>
-                <View style={ styles.inputView }>
+               <View style={ styles.inputView }>
                     <TextInput
                         style={ styles.inputText }
                         placeholder="Surname:"
                         placeholderTextColor="#ffffff"
                         onChangeText={ text => setState({ ...state, name: text }) } />
                 </View>
+                </View>
+                <View style={ styles.inputViewName }>
                 <View style={ styles.inputView }>
                     <TextInput
                         secureTextEntry={ true }
@@ -60,6 +63,8 @@ export default function SignUpScreen({ navigation }: any) {
                         placeholderTextColor="#ffffff"
                         onChangeText={ text => setState({ ...state, email: text }) } />
                 </View>
+                </View>
+                <View style={ styles.inputViewName }>
                 <View style={ styles.inputView }>
                     <TextInput
                         secureTextEntry={ true }
@@ -76,7 +81,8 @@ export default function SignUpScreen({ navigation }: any) {
                         placeholderTextColor="#ffffff"
                         onChangeText={ text => setState({ ...state, passwordverify: text }) } />
                 </View>
-                <TouchableOpacity onPress={ () => navigation.navigate('Login') }>
+                </View>
+                <TouchableOpacity onPress={ () => navigation.navigate('Login')  } style={ styles.loginBtn2 }>
                     <Text style={ styles.login }>You have an account? Login.</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={ styles.loginBtn }>
@@ -124,7 +130,7 @@ const styles = StyleSheet.create({
         width: 240,
         height: 194,
         position: 'absolute',
-        top: -230
+        top: -200
     },
     inputView: {
         width: "80%",
@@ -135,14 +141,25 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         padding: 20
     },
+    inputViewName: {
+        width: 270,
+        height: 50,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20,
+        display: "flex",
+        flexDirection: "row",
+        top: 20
+    },
+ 
     inputText: {
+        fontSize: 13,
         height: 50,
         color: "white"
     },
     login: {
         color: "black",
         fontSize: 16,
-        top: 230,
         textDecorationLine: 'underline'
     },
     loginBtn: {
@@ -154,7 +171,18 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         marginTop: 10,
         marginBottom: 10,
-        top: 40
+        top: -20
+    },
+    loginBtn2: {
+        width: 250,
+        backgroundColor: "#ffffff",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 10,
+        marginBottom: 10,
+        top: 300
     },
     contBtn: {
         width: "50%",

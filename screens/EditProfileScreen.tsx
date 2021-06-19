@@ -4,7 +4,7 @@ import { Container, Header, Content, ListItem, Radio, Right, Left, Icon } from '
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function CreatePostScreen() {
+export default function EditProfileScreen() {
     return (
         <View style={styles.container}>
         <LinearGradient
@@ -17,13 +17,13 @@ export default function CreatePostScreen() {
         colors={['#071a52','#071a52' , '#086972', '#17b978', '#a7ff83']}
         style={styles.circle2}>
         </LinearGradient>
-        <Text style={styles.lostText}> Create a Post </Text>
+        <Text style={styles.lostText}> Edit Profile </Text>
        
         <View style={styles.inputViewName}>
         <View style={styles.inputViewSmall}>
             <TextInput
                         style={ styles.inputText }
-                        placeholder="Select Post Type"
+                        placeholder="Name:"
                         placeholderTextColor="#000000"
                         // onChangeText={ text => setState({ email: text }) }
                     />
@@ -32,7 +32,7 @@ export default function CreatePostScreen() {
         <View style={styles.inputViewSmall}>
             <TextInput
                         style={ styles.inputText }
-                        placeholder="Pet Type:"
+                        placeholder="Surname:"
                         placeholderTextColor="#000000"
                         // onChangeText={ text => setState({ email: text }) }
                     />
@@ -42,15 +42,7 @@ export default function CreatePostScreen() {
         <View style={styles.inputView}>
             <TextInput
                         style={ styles.inputText }
-                        placeholder="Title:"
-                        placeholderTextColor="#000000"
-                        // onChangeText={ text => setState({ email: text }) }
-                    />
-        </View>
-        <View style={styles.inputView2}>
-            <TextInput
-                        style={ styles.inputText2 }
-                        placeholder="Description:"
+                        placeholder="Phone Number:"
                         placeholderTextColor="#000000"
                         // onChangeText={ text => setState({ email: text }) }
                     />
@@ -58,6 +50,10 @@ export default function CreatePostScreen() {
 
         <TouchableOpacity style={ styles.imageBtn }>
              <Icon name='image' />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={ styles.contBtn }>
+                    <Text>Change Password</Text>
         </TouchableOpacity>
         
         <TouchableOpacity style={ styles.loginBtn }>
@@ -188,8 +184,7 @@ const styles = StyleSheet.create({
         height:50,
         alignItems:"center",
         justifyContent:"center",
-        position: 'absolute',
-        top: 70
+        top: 20
       },
     lostText:{
       color:"#ffffff",
@@ -202,5 +197,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color:"#086972",
         fontWeight: 'bold'
-    }
+    },
+    notifyButton: {
+        alignItems: "center",
+        justifyContent: 'center',
+        width: 135,
+        height: 45,
+        borderRadius: 23,
+        backgroundColor: '#071a52',
+        marginTop: 50
+    },
   });

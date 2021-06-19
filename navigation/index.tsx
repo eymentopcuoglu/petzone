@@ -11,6 +11,8 @@ import EmergencyScreen from "../screens/EmergencyScreen";
 import LatestRecordsScreen from "../screens/LatestRecordsScreen";
 import CreatePostScreen from "../screens/CreatePostScreen";
 import AuthenticatedProfile from "../screens/AuthenticatedProfile";
+import EditProfileScreen from "../screens/EditProfileScreen";
+import ChangePassword from "../screens/ChangePassword";
 import { Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -19,6 +21,7 @@ import { getInstitutions } from "../store/features/institution";
 import { createStackNavigator } from '@react-navigation/stack';
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+
 
 export default function Navigation() {
 
@@ -64,6 +67,8 @@ const TestDrawer = () => {
             <Drawer.Screen name="Emergency" component={ EmergencyScreen } />
             <Drawer.Screen name="Create Post" component={ CreatePostScreen } />
             <Drawer.Screen name="Authenticated Profile" component={ AuthenticatedProfile } />
+            <Drawer.Screen name="Edit Profile" component={ EditProfileScreen } />
+            <Drawer.Screen name="Change Password" component={ ChangePassword } />
         </Drawer.Navigator>
     )
 }
