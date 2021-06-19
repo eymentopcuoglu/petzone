@@ -17,46 +17,28 @@ export default function ChangePassword() {
         colors={['#071a52','#071a52' , '#086972', '#17b978', '#a7ff83']}
         style={styles.circle2}>
         </LinearGradient>
-        <Text style={styles.lostText}> Edit Profile </Text>
+        <Text style={styles.lostText}> Change Password </Text>
        
-        <View style={styles.inputViewName}>
-        <View style={styles.inputViewSmall}>
+        
+        <View style={styles.inputView}>
             <TextInput
                         style={ styles.inputText }
-                        placeholder="Name:"
+                        placeholder="New Password:"
                         placeholderTextColor="#000000"
                         // onChangeText={ text => setState({ email: text }) }
                     />
-        </View>
-
-        <View style={styles.inputViewSmall}>
-            <TextInput
-                        style={ styles.inputText }
-                        placeholder="Surname:"
-                        placeholderTextColor="#000000"
-                        // onChangeText={ text => setState({ email: text }) }
-                    />
-        </View>
         </View>
 
         <View style={styles.inputView}>
             <TextInput
                         style={ styles.inputText }
-                        placeholder="Phone Number:"
+                        placeholder="Verify New Password:"
                         placeholderTextColor="#000000"
                         // onChangeText={ text => setState({ email: text }) }
                     />
         </View>
 
-        <TouchableOpacity style={ styles.imageBtn }>
-             <Icon name='image' />
-        </TouchableOpacity>
-
         <TouchableOpacity style={ styles.contBtn }>
-                    <Text>Change Password</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={ styles.loginBtn }>
                     <Text>Submit</Text>
         </TouchableOpacity>
 
