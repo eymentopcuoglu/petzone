@@ -167,7 +167,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         position: 'absolute',
-        top: 70
+        top: 70,
+        left: 95
     },
     lostText: {
         color: "#ffffff",
