@@ -50,13 +50,20 @@ export default function ProfileScreen({ navigation }: any) {
                             </TouchableOpacity>
                         </View>
 
+                        <View>
+                            <TouchableOpacity style={ styles.logoutBtn }
+                                              onPress={ () => navigation.push('Edit Profile') }>
+                                <Text style={ styles.continue }>Log Out</Text>
+                            </TouchableOpacity>
+                        </View>
+
 
                         <View>
                             <Text style={ {
                                 color: '#ffffff',
                                 fontWeight: 'bold',
                                 fontSize: 16,
-                                top: -120
+                                top: -80
                             } }> Posts </Text>
                         </View>
 
@@ -205,6 +212,17 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: -190,
         left: -100
+    },
+    logoutBtn: {
+        width: "25%",
+        backgroundColor: "white",
+        borderRadius: 25,
+        height: 35,
+        alignItems: "center",
+        justifyContent: "center",
+        position: 'absolute',
+        top: -135,
+        left: -50
     },
     lostText: {
         color: "#ffffff",
