@@ -14,7 +14,7 @@ export default function LostFoundScreen({ navigation }: any) {
             const response = await api.post.getLostAndFoundsPosts();
             setLostAndFoundPosts([...response]);
         })();
-    }, []);
+    });
 
     const fetchPosts = () => {
         (async () => {

@@ -14,7 +14,7 @@ export default function AdoptionScreen({ navigation }: any) {
             const response = await api.post.getAdoptionPosts();
             setAdoptionPosts([...response]);
         })();
-    }, []);
+    } );
 
     const fetchPosts = () => {
         console.log('AOUHD8SAOIDHSAPŞIHDSPŞDHJSAĞ');
