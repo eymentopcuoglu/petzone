@@ -42,7 +42,7 @@ export default function LostFoundScreen() {
                                     source={ { uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gnome-stock_person.svg/1200px-Gnome-stock_person.svg.png' } } />
                                 <Body>
                                     <Text>Person Name</Text>
-                                    <Text>{ lostAndFoundPost.createdAt.toISOString() }</Text>
+                                    <Text>{ lostAndFoundPost.createdAt }</Text>
                                 </Body>
                             </Left>
 

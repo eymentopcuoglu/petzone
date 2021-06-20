@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View, Dimensions, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-import MapView, { Circle, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Circle, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useEffect, useState, useRef } from "react";
 import BottomSheet from 'reanimated-bottom-sheet';
 import BottomSheetBehavior from "reanimated-bottom-sheet";
@@ -92,6 +92,14 @@ export default function HomeScreen() {
                                     radius={ 100 }
                                     strokeColor={ '#FFFFFF' }
                                     fillColor={ 'rgba(0,255,0,0.2)' } />
+                                ) }
+                                { notificationPosts?.map((notificationPost, index) => <Marker
+                                    coordinate={ {
+                                        latitude: notificationPost.latitude,
+                                        longitude: notificationPost.longitude
+                                    } }
+                                    key={ index }
+                                    title={ notificationPost.title } description={ notificationPost.description } />
                                 ) }
                             </MapView>
                             <TouchableOpacity

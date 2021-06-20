@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { Container, Content, Card, CardItem, Thumbnail, Left, Body, Right } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useEffect, useState } from "react";
-import api from "../api";
+import { Grid } from 'react-native-easy-grid';
 import { ImagedPost } from "../types";
+import api from "../api";
 
-export default function AdoptionScreen() {
-
+export default function LostFoundScreen() {
     const [adoptionPosts, setAdoptionPosts] = useState<ImagedPost[]>([]);
 
     useEffect(() => {
@@ -17,14 +17,14 @@ export default function AdoptionScreen() {
     }, []);
 
     return (
-        <View style={ styles.container }>
+        <Container style={ styles.container }>
+
             <LinearGradient
-                // Button Linear Gradient
                 colors={ ['#a7ff83', '#17b978', '#a7ff83'] }
                 style={ styles.circle }>
             </LinearGradient>
+
             <LinearGradient
-                // Button Linear Gradient
                 colors={ ['#071a52', '#071a52', '#086972', '#17b978', '#a7ff83'] }
                 style={ styles.circle2 }>
             </LinearGradient>
@@ -32,21 +32,51 @@ export default function AdoptionScreen() {
             <TouchableOpacity style={ styles.contBtn }>
                 <Text style={ styles.continue }>Create a Post</Text>
             </TouchableOpacity>
-            <View style={ styles.container2 }>
-            </View>
-            { adoptionPosts.map((adoptionPost, index) =>
-                <View style={ styles.rectangle } key={ index }>
-                    <Text style={ styles.title }> { adoptionPost.title } </Text>
-                    <Text style={ styles.descript }> { adoptionPost.description } </Text>
-                </View>
-            ) }
-        </View>
+
+            <Content>
+                { adoptionPosts.map(adoptionPost =>
+                    <Card style={ { flex: 0, width: 380, top: 180, height: 530 } }>
+                        <CardItem>
+                            <Left>
+                                <Thumbnail
+                                    source={ { uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gnome-stock_person.svg/1200px-Gnome-stock_person.svg.png' } } />
+                                <Body>
+                                    <Text>Person Name</Text>
+                                    <Text>{ adoptionPost.createdAt }</Text>
+                                </Body>
+                            </Left>
+
+                            <Right>
+                                <Text>11h ago</Text>
+                            </Right>
+                        </CardItem>
+                        <CardItem cardBody>
+                            <Grid>
+                                <Image
+                                    source={ { uri: 'https://ichef.bbci.co.uk/news/976/cpsprodpb/C1F7/production/_118555694_cats_02.jpg' } }
+                                    style={ { height: 200, width: 200, flex: 1 } } />
+                            </Grid>
+                        </CardItem>
+
+                        <CardItem>
+                            <Text>
+                                { adoptionPost.description }
+                            </Text>
+                        </CardItem>
+                    </Card>
+                ) }
+            </Content>
+        </Container>
     );
 }
 
 const styles = StyleSheet.create({
     rectangle: {
-        width: 350, height: 100, backgroundColor: '#ffffff', borderRadius: 20, top: -100, marginBottom: 30
+        width: 350,
+        height: 200,
+        backgroundColor: '#ffffff',
+        borderRadius: 20,
+        top: -100,
     },
     circle: {
         width: 500,
@@ -134,10 +164,5 @@ const styles = StyleSheet.create({
         color: "#086972",
         fontWeight: 'bold'
     },
-    title: {
-        fontSize: 16, color: "#086972", fontWeight: 'bold', top: 10, left: 5
-    }
-    , descript: {
-        fontSize: 12, color: "black", top: 10, left: 5
-    }
+
 });

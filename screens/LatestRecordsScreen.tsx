@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useState } from "react";
 import api from '../api';
@@ -32,12 +32,14 @@ export default function LatestRecordsScreen() {
 
             <View style={ styles.container2 }>
             </View>
-            { latestRecords.map((latestRecord, index) =>
-                <View style={ styles.rectangle } key={ index }>
-                    <Text style={ styles.title }> { latestRecord.title }</Text>
-                    <Text style={ styles.descript}> { latestRecord.description }</Text>
-                </View>
-            ) }
+            <ScrollView contentContainerStyle={ styles.scrollViewContainer }>
+                { latestRecords.map((latestRecord, index) =>
+                    <View style={ styles.rectangle } key={ index }>
+                        <Text style={ styles.title }> { latestRecord.title }</Text>
+                        <Text style={ styles.descript }> { latestRecord.description }</Text>
+                    </View>
+                ) }
+            </ScrollView>
         </View>
     );
 }
@@ -45,6 +47,9 @@ export default function LatestRecordsScreen() {
 const styles = StyleSheet.create({
     rectangle: {
         width: 350, height: 100, backgroundColor: '#ffffff', borderRadius: 20, top: -100, marginBottom: 30
+    },
+    scrollViewContainer: {
+        paddingTop: 200
     },
     circle: {
         width: 500,
@@ -133,5 +138,5 @@ const styles = StyleSheet.create({
     , descript: {
         fontSize: 12, color: "black", top: 10, left: 5
     }
- 
+
 });
