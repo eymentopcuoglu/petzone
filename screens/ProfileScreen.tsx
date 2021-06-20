@@ -31,7 +31,7 @@ export default function ProfileScreen({ navigation }: any) {
                         </View>
                         { !user.isVerified &&
                         <View>
-                            <Text style={ styles.personText }> Your email is not verified! Please check your email and
+                            <Text style={ styles.warningText }>Your email is not verified! Please check your email and
                                 verify by clicking the link </Text>
                         </View> }
                         <View>
@@ -49,6 +49,7 @@ export default function ProfileScreen({ navigation }: any) {
                                 <Text style={ styles.continue }>Edit Profile</Text>
                             </TouchableOpacity>
                         </View>
+
 
                         <View>
                             <Text style={ {
@@ -222,6 +223,14 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         fontWeight: 'bold',
         top: -220
+    },
+    warningText: {
+        fontSize: 18,
+        color: "#FF4C4C",
+        fontWeight: 'bold',
+        top: -220,
+        marginBottom:20,
+        left: 15
     },
     mailText: {
         fontSize: 14,
