@@ -1,63 +1,85 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { login } from '../store/features/auth';
+import { Status } from "../types";
 
 export default function LoginScreen({ navigation }: any) {
 
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+
+    const dispatch = useAppDispatch();
+    const { status } = useAppSelector(state => state.auth);
+
+    const onSubmit = async () => {
+        dispatch(login({
+            email: email,
+            password: password
+        }));
+    }
+
     return (
         <View style={ styles.container }>
-            <LinearGradient
-                // Button Linear Gradient
-                colors={ ['#a7ff83', '#17b978', '#a7ff83'] }
-                style={ styles.circle }>
-            </LinearGradient>
-            <LinearGradient
-                // Button Linear Gradient
-                colors={ ['#071a52', '#071a52', '#086972', '#17b978', '#a7ff83'] }
-                style={ styles.circle2 }>
-            </LinearGradient>
+            { status == Status.LOADING ? <ActivityIndicator /> :
+                <>
+                    <LinearGradient
+                        // Button Linear Gradient
+                        colors={ ['#a7ff83', '#17b978', '#a7ff83'] }
+                        style={ styles.circle }>
+                    </LinearGradient>
+                    <LinearGradient
+                        // Button Linear Gradient
+                        colors={ ['#071a52', '#071a52', '#086972', '#17b978', '#a7ff83'] }
+                        style={ styles.circle2 }>
+                    </LinearGradient>
 
-            <View style={ styles.container2 }>
+                    <View style={ styles.container2 }>
 
-                <Image source={ require('../assets/petzone.png') }
-                       style={ styles.logo } />
+                        <Image source={ require('../assets/petzone.png') }
+                               style={ styles.logo } />
 
-                <View style={ styles.inputView }>
-                    <TextInput
-                        style={ styles.inputText }
-                        placeholder="Email:"
-                        placeholderTextColor="#ffffff"
-                        // onChangeText={ text => setState({ email: text }) }
-                    />
-                </View>
-                <View style={ styles.inputView }>
-                    <TextInput
-                        secureTextEntry={ true }
-                        style={ styles.inputText }
-                        placeholder="Password:"
-                        placeholderTextColor="#ffffff"
-                        // onChangeText={ text => this.setState({ password: text }) }
-                    />
-                </View>
+                        <View style={ styles.inputView }>
+                            <TextInput
+                                style={ styles.inputText }
+                                placeholder="Email:"
+                                placeholderTextColor="#ffffff"
+                                value={ email }
+                                onChangeText={ email => setEmail(email) }
+                            />
+                        </View>
+                        <View style={ styles.inputView }>
+                            <TextInput
+                                secureTextEntry={ true }
+                                style={ styles.inputText }
+                                placeholder="Password:"
+                                placeholderTextColor="#ffffff"
+                                value={ password }
+                                onChangeText={ password => setPassword(password) }
+                            />
+                        </View>
 
-                <TouchableOpacity style={ styles.loginBtn }>
-                    <Text style={ styles.loginText }>LOGIN</Text>
-                </TouchableOpacity>
+                        <TouchableOpacity style={ styles.loginBtn } onPress={ onSubmit }>
+                            <Text style={ styles.loginText }>LOGIN</Text>
+                        </TouchableOpacity>
 
-                <TouchableOpacity onPress={ () => navigation.push('SignUp') }>
-                    <Text style={ { color: "white", textDecorationLine: 'underline' } }>Don't have an account?
-                        Register</Text>
-                </TouchableOpacity>
+                        <TouchableOpacity onPress={ () => navigation.push('SignUp') }>
+                            <Text style={ { color: "white", textDecorationLine: 'underline' } }>Don't have an account?
+                                Register</Text>
+                        </TouchableOpacity>
 
-                <TouchableOpacity onPress={ () => navigation.push('ForgotPassword') }>
-                    <Text style={ styles.forgot }>Forgot Password</Text>
-                </TouchableOpacity>
+                        <TouchableOpacity onPress={ () => navigation.push('ForgotPassword') }>
+                            <Text style={ styles.forgot }>Forgot Password</Text>
+                        </TouchableOpacity>
 
-                <TouchableOpacity style={ styles.contBtn } onPress={ () => navigation.push('Drawer') }>
-                    <Text style={ styles.continue }>Continue as a Guest</Text>
-                </TouchableOpacity>
-
-            </View>
+                        <TouchableOpacity style={ styles.contBtn } onPress={ () => navigation.push('Drawer') }>
+                            <Text style={ styles.continue }>Continue as a Guest</Text>
+                        </TouchableOpacity>
+                    </View>
+                </>
+            }
         </View>
     );
 }

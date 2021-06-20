@@ -10,7 +10,7 @@ export default function DonationScreen() {
 
     return (
         <View style={ styles.container }>
-            { status == Status.LOADING ? <ActivityIndicator /> :
+            { status === Status.LOADING ? <ActivityIndicator /> :
                 <>
                     <LinearGradient
                         // Button Linear Gradient

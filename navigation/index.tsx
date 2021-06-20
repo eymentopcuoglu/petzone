@@ -10,7 +10,6 @@ import DonationScreen from "../screens/DonationScreen";
 import EmergencyScreen from "../screens/EmergencyScreen";
 import LatestRecordsScreen from "../screens/LatestRecordsScreen";
 import CreatePostScreen from "../screens/CreatePostScreen";
-import AuthenticatedProfile from "../screens/AuthenticatedProfile";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import ChangePassword from "../screens/ChangePassword";
 import { Image } from "react-native";
@@ -66,7 +65,6 @@ const TestDrawer = () => {
             <Drawer.Screen name="Latest Records" component={ LatestRecordsScreen } />
             <Drawer.Screen name="Emergency" component={ EmergencyScreen } />
             <Drawer.Screen name="Create Post" component={ CreatePostScreen } />
-            <Drawer.Screen name="Authenticated Profile" component={ AuthenticatedProfile } />
             <Drawer.Screen name="Edit Profile" component={ EditProfileScreen } />
             <Drawer.Screen name="Change Password" component={ ChangePassword } />
         </Drawer.Navigator>

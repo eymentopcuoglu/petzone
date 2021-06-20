@@ -37,6 +37,4 @@ export const institutionSlice = createSlice({
     }
 });
 
-// export const { increment, decrement, incrementByAmount } = counterSlice.actions
-
 export default institutionSlice.reducer;
