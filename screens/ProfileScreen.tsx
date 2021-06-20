@@ -31,7 +31,7 @@ export default function ProfileScreen({ navigation }: any) {
                         </View>
                         { !user.isVerified &&
                         <View>
-                            <Text style={ styles.personText }> Your email is not verified! Please check your email and
+                            <Text style={ styles.warningText }>Your email is not verified! Please check your email and
                                 verify by clicking the link </Text>
                         </View> }
                         <View>
@@ -51,11 +51,19 @@ export default function ProfileScreen({ navigation }: any) {
                         </View>
 
                         <View>
+                            <TouchableOpacity style={ styles.logoutBtn }
+                                              onPress={ () => navigation.push('Edit Profile') }>
+                                <Text style={ styles.continue }>Log Out</Text>
+                            </TouchableOpacity>
+                        </View>
+
+
+                        <View>
                             <Text style={ {
                                 color: '#ffffff',
                                 fontWeight: 'bold',
                                 fontSize: 16,
-                                top: -120
+                                top: -80
                             } }> Posts </Text>
                         </View>
 
@@ -205,6 +213,17 @@ const styles = StyleSheet.create({
         top: -190,
         left: -100
     },
+    logoutBtn: {
+        width: "25%",
+        backgroundColor: "white",
+        borderRadius: 25,
+        height: 35,
+        alignItems: "center",
+        justifyContent: "center",
+        position: 'absolute',
+        top: -135,
+        left: -50
+    },
     lostText: {
         color: "#ffffff",
         top: 0,
@@ -222,6 +241,14 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         fontWeight: 'bold',
         top: -220
+    },
+    warningText: {
+        fontSize: 18,
+        color: "#FF4C4C",
+        fontWeight: 'bold',
+        top: -220,
+        marginBottom:20,
+        left: 15
     },
     mailText: {
         fontSize: 14,
