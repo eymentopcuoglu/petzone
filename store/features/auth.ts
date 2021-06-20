@@ -1,5 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { LoginRequest, LoginResponse, RegistrationRequest, RegistrationResponse, Status, User } from '../../types';
+import {
+    EditProfileRequest,
+    LoginRequest,
+    LoginResponse,
+    RegistrationRequest,
+    RegistrationResponse,
+    Status,
+    User
+} from '../../types';
 import api from '../../api';
 
 interface AuthState {
@@ -35,6 +43,11 @@ export const register = createAsyncThunk('auth/register', async (registrationReq
         registrationRequest.phoneNumber, registrationRequest.password)) as RegistrationResponse;
 });
 
+export const editUser = createAsyncThunk('auth/editUser', async (editProfileRequest: EditProfileRequest) => {
+    return (await api.user.updateUser(editProfileRequest.userId, editProfileRequest.name, editProfileRequest.surname,
+        editProfileRequest.email, editProfileRequest.phoneNumber, editProfileRequest.token)) as User;
+});
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -68,6 +81,19 @@ export const authSlice = createSlice({
             state.status = Status.SUCCEEDED;
         });
         builder.addCase(register.rejected, (state, action) => {
+            state.status = Status.FAILED;
+            state.error = action.error.message;
+        });
+        builder.addCase(editUser.pending, (state, action) => {
+            state.status = Status.LOADING;
+        });
+        builder.addCase(editUser.fulfilled, (state, action) => {
+            state.status = Status.IDLE;
+            state.user.name = action.payload.name;
+            state.user.surname = action.payload.surname;
+            state.user.phoneNumber = action.payload.phoneNumber;
+        });
+        builder.addCase(editUser.rejected, (state, action) => {
             state.status = Status.FAILED;
             state.error = action.error.message;
         });

@@ -51,13 +51,6 @@ export default function ProfileScreen({ navigation }: any) {
                         </View>
 
                         <View>
-                            <TouchableOpacity style={ styles.changePasswordButton }
-                                              onPress={ () => navigation.push('Change Password') }>
-                                <Text style={ styles.continue }>Change Password</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                        <View>
                             <Text style={ {
                                 color: '#ffffff',
                                 fontWeight: 'bold',

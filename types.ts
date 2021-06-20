@@ -26,6 +26,15 @@ export interface LoginResponse {
     user: User
 }
 
+export interface EditProfileRequest {
+    userId: number,
+    name: string,
+    surname: string,
+    email: string,
+    phoneNumber: string,
+    token: string
+}
+
 export interface Institution {
     id: number,
     name: string,
