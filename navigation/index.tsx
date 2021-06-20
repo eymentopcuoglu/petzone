@@ -63,8 +63,6 @@ const TestDrawer = () => {
             <Drawer.Screen name="Lost&Found" component={ LostFoundScreen } />
             <Drawer.Screen name="Donation" component={ DonationScreen } />
             <Drawer.Screen name="Latest Records" component={ LatestRecordsScreen } />
-            <Drawer.Screen name="Emergency" component={ EmergencyScreen } />
-            <Drawer.Screen name="Create Post" component={ CreatePostScreen } />
         </Drawer.Navigator>
     )
 }
@@ -84,8 +82,36 @@ function RootNavigator() {
                 <>
                     <Stack.Screen name='Drawer' component={ TestDrawer } />
                     <Stack.Screen name='Profile' component={ ProfileScreen } />
-                    <Stack.Screen name="Edit Profile" component={ EditProfileScreen } />
-                    <Stack.Screen name="Change Password" component={ ChangePassword } />
+                    <Stack.Screen name="Edit Profile" component={ EditProfileScreen } options={ ({ navigation }) => {
+                        return ({
+                            headerShown: true,
+                            headerStyle: { backgroundColor: '#071a52', minHeight: 102 },
+                            headerTitleAlign: 'center',
+                            headerTitle: props => <Image style={ { width: 70, height: 57 } }
+                                                         source={ require('../assets/petzone.png') } />,
+                            headerRight: props => <Ionicons name="person-circle-outline" size={ 36 } color="white"
+                                                            style={ { marginRight: 10 } }
+                                                            onPress={ () => navigation.navigate('Profile') } />,
+                            headerLeft: props => <Ionicons name="ios-menu" size={ 36 } color="white"
+                                                           style={ { marginLeft: 10 } }
+                                                           onPress={ () => navigation.openDrawer() } />
+                        })
+                    } } />
+                    <Stack.Screen name="Change Password" component={ ChangePassword } options={ ({ navigation }) => {
+                        return ({
+                            headerShown: true,
+                            headerStyle: { backgroundColor: '#071a52', minHeight: 102 },
+                            headerTitleAlign: 'center',
+                            headerTitle: props => <Image style={ { width: 70, height: 57 } }
+                                                         source={ require('../assets/petzone.png') } />,
+                            headerRight: props => <Ionicons name="person-circle-outline" size={ 36 } color="white"
+                                                            style={ { marginRight: 10 } }
+                                                            onPress={ () => navigation.navigate('Profile') } />,
+                            headerLeft: props => <Ionicons name="ios-menu" size={ 36 } color="white"
+                                                           style={ { marginLeft: 10 } }
+                                                           onPress={ () => navigation.openDrawer() } />
+                        })
+                    } } />
                 </>
             ) : (
                 <>
