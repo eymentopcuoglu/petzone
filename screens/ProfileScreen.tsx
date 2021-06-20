@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        top: 60
     },
     title: {
         fontSize: 20,
