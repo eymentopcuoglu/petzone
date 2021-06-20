@@ -121,10 +121,7 @@ function RootNavigator() {
                                                          source={ require('../assets/petzone.png') } />,
                             headerRight: props => <Ionicons name="person-circle-outline" size={ 36 } color="white"
                                                             style={ { marginRight: 10 } }
-                                                            onPress={ () => navigation.navigate('Profile') } />,
-                            headerLeft: props => <Ionicons name="ios-menu" size={ 36 } color="white"
-                                                           style={ { marginLeft: 10 } }
-                                                           onPress={ () => navigation.openDrawer() } />
+                                                            onPress={ () => navigation.navigate('Profile') } />
                         })
                     } } />
                 </>
@@ -145,10 +142,7 @@ function RootNavigator() {
                                                          source={ require('../assets/petzone.png') } />,
                             headerRight: props => <Ionicons name="person-circle-outline" size={ 36 } color="white"
                                                             style={ { marginRight: 10 } }
-                                                            onPress={ () => navigation.navigate('Profile') } />,
-                            headerLeft: props => <Ionicons name="ios-menu" size={ 36 } color="white"
-                                                           style={ { marginLeft: 10 } }
-                                                           onPress={ () => navigation.openDrawer() } />
+                                                            onPress={ () => navigation.navigate('Profile') } />
                         })
                     } } />
                 </>

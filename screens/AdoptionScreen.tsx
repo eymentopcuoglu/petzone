@@ -14,7 +14,7 @@ export default function AdoptionScreen({ navigation }: any) {
             const response = await api.post.getAdoptionPosts();
             setAdoptionPosts([...response]);
         })();
-    }, []);
+    });
 
     return (
         <Container style={ styles.container }>
@@ -35,14 +35,14 @@ export default function AdoptionScreen({ navigation }: any) {
             </TouchableOpacity>
 
             <Content>
-                { adoptionPosts.map(adoptionPost =>
-                    <Card style={ { flex: 0, width: 380, top: 180, height: 360, marginBottom: 50 } }>
+                { adoptionPosts.map((adoptionPost, index) =>
+                    <Card style={ { flex: 0, width: 380, top: 180, height: 360, marginBottom: 50 } } key={ index }>
                         <CardItem>
                             <Left>
                                 <Thumbnail
                                     source={ { uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gnome-stock_person.svg/1200px-Gnome-stock_person.svg.png' } } />
                                 <Body>
-                                    <Text>Person Name</Text>
+                                    <Text>{ adoptionPost.userName }</Text>
                                     <Text>{ adoptionPost.createdAt }</Text>
                                 </Body>
                             </Left>
@@ -54,7 +54,7 @@ export default function AdoptionScreen({ navigation }: any) {
                         <CardItem cardBody>
                             <Grid>
                                 <Image
-                                    source={ { uri: 'https://ichef.bbci.co.uk/news/976/cpsprodpb/C1F7/production/_118555694_cats_02.jpg' } }
+                                    source={ { uri: adoptionPost.image } }
                                     style={ { height: 200, width: 200, flex: 1 } } />
                             </Grid>
                         </CardItem>

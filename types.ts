@@ -51,7 +51,8 @@ interface Post {
     petType: string,
     postType: string,
     createdAt: Date,
-    updatedAt: Date
+    updatedAt: Date,
+    userName: string | null
 }
 
 export interface NotificationPost extends Post {
@@ -61,7 +62,7 @@ export interface NotificationPost extends Post {
 }
 
 export interface ImagedPost extends Post {
-    image: Blob,
+    image: string,
     isCompleted: boolean
 }
 

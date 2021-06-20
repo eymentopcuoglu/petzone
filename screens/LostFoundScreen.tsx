@@ -14,7 +14,7 @@ export default function LostFoundScreen({ navigation }: any) {
             const response = await api.post.getLostAndFoundsPosts();
             setLostAndFoundPosts([...response]);
         })();
-    }, []);
+    });
 
     return (
         <Container style={ styles.container }>
@@ -41,14 +41,14 @@ export default function LostFoundScreen({ navigation }: any) {
                 <TouchableOpacity style={ styles.contBtn } onPress={ () => navigation.navigate('CreatePost') }>
                     <Text style={ styles.continue }>Create a Post</Text>
                 </TouchableOpacity>
-                { lostAndFoundPosts.map(lostAndFoundPost =>
-                    <Card style={ { flex: 0, width: 380, top: 180, height: 360, marginBottom: 50 } }>
+                { lostAndFoundPosts.map((lostAndFoundPost, index) =>
+                    <Card style={ { flex: 0, width: 380, top: 180, height: 360, marginBottom: 50 } } key={ index }>
                         <CardItem>
                             <Left>
                                 <Thumbnail
                                     source={ { uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gnome-stock_person.svg/1200px-Gnome-stock_person.svg.png' } } />
                                 <Body>
-                                    <Text>Person Name</Text>
+                                    <Text>{ lostAndFoundPost.userName }</Text>
                                     <Text>{ lostAndFoundPost.createdAt }</Text>
                                 </Body>
                             </Left>
@@ -60,7 +60,7 @@ export default function LostFoundScreen({ navigation }: any) {
                         <CardItem cardBody>
                             <Grid>
                                 <Image
-                                    source={ { uri: 'https://ichef.bbci.co.uk/news/976/cpsprodpb/C1F7/production/_118555694_cats_02.jpg' } }
+                                    source={ { uri: lostAndFoundPost.image } }
                                     style={ { height: 200, width: 200, flex: 1 } } />
                             </Grid>
                         </CardItem>
