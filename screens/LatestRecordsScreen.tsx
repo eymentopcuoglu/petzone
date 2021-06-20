@@ -28,14 +28,15 @@ export default function LatestRecordsScreen() {
                 colors={ ['#071a52', '#071a52', '#086972', '#17b978', '#a7ff83'] }
                 style={ styles.circle2 }>
             </LinearGradient>
-            <Text style={ styles.lostText }> Latest Records </Text>
 
             <View style={ styles.container2 }>
             </View>
             <ScrollView contentContainerStyle={ styles.scrollViewContainer }>
+                <Text style={ styles.lostText }> Latest Records </Text>
                 { latestRecords.map((latestRecord, index) =>
                     <View style={ styles.rectangle } key={ index }>
                         <Text style={ styles.title }> { latestRecord.title }</Text>
+                        <Text style={ styles.title2 }> { "Type: " + latestRecord.postType + " - Pet Type: " + latestRecord.petType}</Text>
                         <Text style={ styles.descript }> { latestRecord.description }</Text>
                     </View>
                 ) }
@@ -46,7 +47,12 @@ export default function LatestRecordsScreen() {
 
 const styles = StyleSheet.create({
     rectangle: {
-        width: 350, height: 100, backgroundColor: '#ffffff', borderRadius: 20, top: -100, marginBottom: 30
+        width: 360,
+        height: 130,
+        backgroundColor: '#ffffff',
+        borderRadius: 20,
+        marginTop: 30,
+        top: -150
     },
     scrollViewContainer: {
         paddingTop: 200
@@ -130,13 +136,32 @@ const styles = StyleSheet.create({
         top: 20,
         fontSize: 20,
         position: "absolute",
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        left: 110
     },
     title: {
-        fontSize: 16, color: "#086972", fontWeight: 'bold', top: 10, left: 5
+        fontSize: 16,
+        color: "#086972",
+        fontWeight: 'bold',
+        left: 10,
+        top: 5,
+        marginBottom: 5
+    }
+    ,
+    title2: {
+        fontSize: 16,
+        color: "black",
+        fontWeight: 'bold',
+        left: 7,
+        top: 5,
+        marginBottom: 5
     }
     , descript: {
-        fontSize: 12, color: "black", top: 10, left: 5
+        width: 350,
+        fontSize: 14,
+        color: "black",
+        left: 7,
+        top: 5
     }
 
 });

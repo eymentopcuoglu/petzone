@@ -29,13 +29,14 @@ export default function LostFoundScreen() {
                 style={ styles.circle2 }>
             </LinearGradient>
             <Text style={ styles.lostText }> Adoption </Text>
+            
             <TouchableOpacity style={ styles.contBtn }>
                 <Text style={ styles.continue }>Create a Post</Text>
             </TouchableOpacity>
-
+            
             <Content>
                 { adoptionPosts.map(adoptionPost =>
-                    <Card style={ { flex: 0, width: 380, top: 180, height: 530 } }>
+                    <Card style={ { flex: 0, width: 380, top: 180, height: 360, marginBottom: 50 } }>
                         <CardItem>
                             <Left>
                                 <Thumbnail
@@ -58,9 +59,14 @@ export default function LostFoundScreen() {
                             </Grid>
                         </CardItem>
 
-                        <CardItem>
-                            <Text>
+                        <CardItem style={{ marginBottom: -10 }}>
+                            <Text style={{fontWeight: "bold", fontSize: 16}}>
                                 { adoptionPost.description }
+                            </Text>
+                        </CardItem>
+                        <CardItem>
+                            <Text style={{ fontSize: 13}}>
+                                { adoptionPost.title }
                             </Text>
                         </CardItem>
                     </Card>

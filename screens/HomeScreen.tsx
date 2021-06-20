@@ -99,7 +99,9 @@ export default function HomeScreen() {
                                         longitude: notificationPost.longitude
                                     } }
                                     key={ index }
-                                    title={ notificationPost.title } description={ notificationPost.description } />
+                                    title={ notificationPost.title + " " + "(Type: " + notificationPost.postType + ")" } 
+                                    description={ notificationPost.description }
+                                    c />
                                 ) }
                             </MapView>
                             <TouchableOpacity

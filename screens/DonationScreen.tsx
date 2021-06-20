@@ -21,9 +21,10 @@ export default function DonationScreen() {
                         colors={ ['#071a52', '#071a52', '#086972', '#17b978', '#a7ff83'] }
                         style={ styles.circle2 }>
                     </LinearGradient>
-                    <Text style={ styles.lostText }> Donation </Text>
+                    
 
                     <ScrollView contentContainerStyle={ styles.container2 }>
+                        <Text style={ styles.lostText }> Donation </Text>
                         { institutions.filter(institution => institution.institutionType === 'D' || institution.institutionType === 'S').map((institution, index) =>
                             <View key={ index } style={ styles.rectangle }>
                                 <Text style={ styles.continue }> { institution.name } </Text>
@@ -40,11 +41,11 @@ export default function DonationScreen() {
 
 const styles = StyleSheet.create({
     rectangle: {
-        width: 350,
-        height: 200,
+        width: 360,
+        height: 110,
         backgroundColor: '#ffffff',
         borderRadius: 20,
-        marginTop: 50
+        marginTop: 30
     },
     circle: {
         width: 500,
@@ -71,7 +72,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     container2: {
-        paddingTop: 50
+        paddingTop: 50,
+        height: 900
     },
     logo: {
         width: 240,
@@ -121,11 +123,28 @@ const styles = StyleSheet.create({
         top: 20,
         fontSize: 20,
         position: "absolute",
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        left: 135
     },
     continue: {
         fontSize: 16,
         color: "#086972",
-        fontWeight: 'bold'
-    }
+        fontWeight: 'bold',
+        left: 10,
+        top: 5
+    },
+    phone: {
+        fontSize: 14,
+        color: "black",
+        fontWeight: 'bold',
+        left: 10,
+        top: 5
+    },
+    address: {
+        width: 350,
+        fontSize: 14,
+        color: "black",
+        left: 10,
+        top: 5
+    },
 });

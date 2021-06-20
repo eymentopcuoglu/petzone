@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAppSelector } from "../hooks";
 
@@ -19,9 +19,13 @@ export default function EmergencyScreen() {
                 colors={ ['#071a52', '#071a52', '#086972', '#17b978', '#a7ff83'] }
                 style={ styles.circle2 }>
             </LinearGradient>
-            <Text style={ styles.lostText }> Emergency Numbers </Text>
 
             <ScrollView contentContainerStyle={ styles.container2 }>
+                <Text style={ styles.lostText }> Emergency Numbers </Text>
+                <TouchableOpacity style={ styles.emergency }>
+                    <Text style={{color: "white", fontWeight: "bold", fontSize: 18}}>Call 153</Text>
+                </TouchableOpacity>
+                
                 { institutions.filter(institution => institution.institutionType === 'E').map((institution, index) =>
                     <View key={ index } style={ styles.rectangle }>
                         <Text style={ styles.continue }> { institution.name } </Text>
@@ -37,11 +41,12 @@ export default function EmergencyScreen() {
 
 const styles = StyleSheet.create({
     rectangle: {
-        width: 350,
-        height: 200,
+        width: 360,
+        height: 110,
         backgroundColor: '#ffffff',
         borderRadius: 20,
-        marginTop: 50
+        marginTop: 30,
+        top: 30
     },
     circle: {
         width: 500,
@@ -68,7 +73,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     container2: {
-        paddingTop: 50
+        paddingTop: 50,
+        height: 900
     },
     logo: {
         width: 240,
@@ -115,14 +121,42 @@ const styles = StyleSheet.create({
     },
     lostText: {
         color: "#ffffff",
-        top: 20,
+        top: -40,
         fontSize: 20,
-        position: "absolute",
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        left: 80
     },
     continue: {
         fontSize: 16,
         color: "#086972",
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        left: 10,
+        top: 5
+    },
+    phone: {
+        fontSize: 14,
+        color: "black",
+        fontWeight: 'bold',
+        left: 10,
+        top: 5
+    },
+    address: {
+        width: 350,
+        fontSize: 14,
+        color: "black",
+        left: 10,
+        top: 5
+    },
+    emergency: {
+        width: "50%",
+        backgroundColor: "red",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        position: 'absolute',
+        top: 50,
+        left: 90,
+        marginTop:10
     }
 });

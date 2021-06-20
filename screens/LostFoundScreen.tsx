@@ -35,7 +35,7 @@ export default function LostFoundScreen() {
 
             <Content>
                 { lostAndFoundPosts.map(lostAndFoundPost =>
-                    <Card style={ { flex: 0, width: 380, top: 180, height: 530 } }>
+                    <Card style={ { flex: 0, width: 380, top: 180, height: 360, marginBottom: 50 } }>
                         <CardItem>
                             <Left>
                                 <Thumbnail
@@ -58,9 +58,14 @@ export default function LostFoundScreen() {
                             </Grid>
                         </CardItem>
 
-                        <CardItem>
-                            <Text>
+                        <CardItem style={{ marginBottom: -10 }}>
+                            <Text style={{fontWeight: "bold", fontSize: 16}}>
                                 { lostAndFoundPost.description }
+                            </Text>
+                        </CardItem>
+                        <CardItem>
+                            <Text style={{ fontSize: 13}}>
+                                { lostAndFoundPost.title }
                             </Text>
                         </CardItem>
                     </Card>
