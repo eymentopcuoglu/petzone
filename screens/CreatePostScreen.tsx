@@ -8,7 +8,9 @@ import api from "../api";
 import RNPickerSelect from "react-native-picker-select";
 import { useAppSelector } from "../hooks";
 
-export default function CreatePostScreen() {
+export default function CreatePostScreen({ route, navigation }: any) {
+
+    const { fetchPosts } = route.params;
 
     const [image, setImage] = useState<string>('');
     const [postType, setPostType] = useState<'A' | 'LF' | ''>('');
@@ -45,6 +47,7 @@ export default function CreatePostScreen() {
             const response = await api.post.createImagedPost(user.id, description, title, petType, postType, image, false, token);
             console.log(image);
             Alert.alert('Success', 'Successfully shared!');
+            fetchPosts();
         } catch (e) {
             Alert.alert('Error', 'Please try again');
         }

@@ -14,7 +14,15 @@ export default function AdoptionScreen({ navigation }: any) {
             const response = await api.post.getAdoptionPosts();
             setAdoptionPosts([...response]);
         })();
-    });
+    }, []);
+
+    const fetchPosts = () => {
+        console.log('AOUHD8SAOIDHSAPŞIHDSPŞDHJSAĞ');
+        (async () => {
+            const response = await api.post.getAdoptionPosts();
+            setAdoptionPosts([...response]);
+        })();
+    }
 
     return (
         <Container style={ styles.container }>
@@ -30,7 +38,8 @@ export default function AdoptionScreen({ navigation }: any) {
             </LinearGradient>
             <Text style={ styles.lostText }> Adoption </Text>
 
-            <TouchableOpacity style={ styles.contBtn } onPress={ () => navigation.navigate('CreatePost') }>
+            <TouchableOpacity style={ styles.contBtn }
+                              onPress={ () => navigation.navigate('CreatePost', { fetchPosts }) }>
                 <Text style={ styles.continue }>Create a Post</Text>
             </TouchableOpacity>
 

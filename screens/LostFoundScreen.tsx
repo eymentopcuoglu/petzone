@@ -14,8 +14,14 @@ export default function LostFoundScreen({ navigation }: any) {
             const response = await api.post.getLostAndFoundsPosts();
             setLostAndFoundPosts([...response]);
         })();
-    });
+    }, []);
 
+    const fetchPosts = () => {
+        (async () => {
+            const response = await api.post.getAdoptionPosts();
+            setLostAndFoundPosts([...response]);
+        })();
+    }
     return (
         <Container style={ styles.container }>
 
@@ -38,7 +44,8 @@ export default function LostFoundScreen({ navigation }: any) {
                     <Text style={ styles.continue }>Create a Post</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={ styles.contBtn } onPress={ () => navigation.navigate('CreatePost') }>
+                <TouchableOpacity style={ styles.contBtn }
+                                  onPress={ () => navigation.navigate('CreatePost', { fetchPosts }) }>
                     <Text style={ styles.continue }>Create a Post</Text>
                 </TouchableOpacity>
                 { lostAndFoundPosts.map((lostAndFoundPost, index) =>
