@@ -63,6 +63,7 @@ const TestDrawer = () => {
             <Drawer.Screen name="Lost&Found" component={ LostFoundScreen } />
             <Drawer.Screen name="Donation" component={ DonationScreen } />
             <Drawer.Screen name="Latest Records" component={ LatestRecordsScreen } />
+            <Drawer.Screen name="EmergencyScreen" component={ EmergencyScreen } />
         </Drawer.Navigator>
     )
 }

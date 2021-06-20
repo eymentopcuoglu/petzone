@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions, TouchableOpacity, Linking } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAppSelector } from "../hooks";
 
@@ -22,10 +22,10 @@ export default function EmergencyScreen() {
 
             <ScrollView contentContainerStyle={ styles.container2 }>
                 <Text style={ styles.lostText }> Emergency Numbers </Text>
-                <TouchableOpacity style={ styles.emergency }>
-                    <Text style={{color: "white", fontWeight: "bold", fontSize: 18}}>Call 153</Text>
+                <TouchableOpacity style={ styles.emergency } onPress={ () => Linking.openURL(`tel:${ 153 }`) }>
+                    <Text style={ { color: "white", fontWeight: "bold", fontSize: 18 } }>Call 153</Text>
                 </TouchableOpacity>
-                
+
                 { institutions.filter(institution => institution.institutionType === 'E').map((institution, index) =>
                     <View key={ index } style={ styles.rectangle }>
                         <Text style={ styles.continue }> { institution.name } </Text>
@@ -157,6 +157,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 50,
         left: 90,
-        marginTop:10
+        marginTop: 10
     }
 });
