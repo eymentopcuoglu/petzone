@@ -27,9 +27,9 @@ export default function DonationScreen() {
                     </View>
                     { institutions.filter(institution => institution.institutionType === 'D').map((institution, index) =>
                         <View key={ index } style={ styles.rectangle }>
-                            <Text> { institution.name } </Text>
-                            <Text> { institution.phoneNumber } </Text>
-                            <Text> { institution.address } </Text>
+                            <Text style={ styles.continue }> { institution.name } </Text>
+                            <Text style={ styles.phone }> { institution.phoneNumber } </Text>
+                            <Text style={ styles.address }> { institution.address } </Text>
                         </View>
                     ) }
                 </>
@@ -103,6 +103,12 @@ const styles = StyleSheet.create({
         }
         , continue: {
             fontSize: 16, color: "#086972", fontWeight: 'bold'
+        }
+        , phone: {
+            fontSize: 12, color: "black",
+        }
+        , address: {
+            fontSize: 12, color: "black",
         }
     }
 );
