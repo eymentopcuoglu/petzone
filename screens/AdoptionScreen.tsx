@@ -30,11 +30,10 @@ export default function AdoptionScreen({ navigation }: any) {
             </LinearGradient>
             <Text style={ styles.lostText }> Adoption </Text>
 
+            <Content>
             <TouchableOpacity style={ styles.contBtn } onPress={ () => navigation.navigate('CreatePost') }>
                 <Text style={ styles.continue }>Create a Post</Text>
             </TouchableOpacity>
-
-            <Content>
                 { adoptionPosts.map(adoptionPost =>
                     <Card style={ { flex: 0, width: 380, top: 180, height: 360, marginBottom: 50 } }>
                         <CardItem>
@@ -156,7 +155,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         position: 'absolute',
-        top: 70
+        top: 80,
+        left: 95
     },
     lostText: {
         color: "#ffffff",
