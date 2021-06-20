@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { login } from '../store/features/auth';
+import { login, loginFailed } from '../store/features/auth';
 import { Status } from "../types";
 
 export default function LoginScreen({ navigation }: any) {
@@ -20,6 +20,13 @@ export default function LoginScreen({ navigation }: any) {
             password: password
         }));
     }
+
+    useEffect(() => {
+        if (status === Status.FAILED) {
+            Alert.alert('Error', 'Wrong password!');
+            dispatch(loginFailed());
+        }
+    })
 
     return (
         <View style={ styles.container }>

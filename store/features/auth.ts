@@ -38,18 +38,24 @@ export const register = createAsyncThunk('auth/register', async (registrationReq
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        loginFailed: state => {
+            state.status = Status.IDLE
+        }
+    },
     extraReducers: builder => {
         builder.addCase(login.pending, (state, action) => {
             state.status = Status.LOADING;
         });
         builder.addCase(login.fulfilled, (state, action) => {
-            console.log(action.payload);
-            state.status = Status.SUCCEEDED;
-            state.user = action.payload.user;
-            state.isAuthenticated = true;
-            state.token = action.payload.jwt;
-
+            if (action.payload.user) {
+                state.status = Status.SUCCEEDED;
+                state.user = action.payload.user;
+                state.isAuthenticated = true;
+                state.token = action.payload.jwt;
+            } else {
+                state.status = Status.FAILED;
+            }
         });
         builder.addCase(login.rejected, (state, action) => {
             state.status = Status.FAILED;
@@ -69,3 +75,4 @@ export const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+export const { loginFailed } = authSlice.actions;

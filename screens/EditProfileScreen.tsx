@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function EditProfileScreen() {
+
     return (
         <View style={styles.container}>
         <LinearGradient
