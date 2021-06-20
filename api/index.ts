@@ -9,6 +9,7 @@ import deletePost from './post/deletePost';
 import getLatestPosts from './post/getLatestPosts';
 import getNotificationPosts from './post/getNotificationPosts';
 import getAdoptionPosts from './post/getAdoptionPosts';
+import getLostAndFoundsPosts from './post/getLostAndFoundsPosts';
 import updateUser from './user/updateUser';
 
 export default {
@@ -27,7 +28,8 @@ export default {
         deletePost,
         getLatestPosts,
         getNotificationPosts,
-        getAdoptionPosts
+        getAdoptionPosts,
+        getLostAndFoundsPosts
     },
     user: {
         updateUser
