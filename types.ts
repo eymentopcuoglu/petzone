@@ -38,6 +38,7 @@ interface Post {
     id: number,
     userId: number,
     description: string,
+    title: string,
     petType: string,
     postType: string,
     createdAt: Date,

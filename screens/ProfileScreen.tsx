@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useAppSelector } from "../hooks";
 import { LinearGradient } from "expo-linear-gradient";
 import { Thumbnail } from "native-base";

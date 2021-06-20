@@ -1,29 +1,43 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
+import { useEffect, useState } from "react";
+import api from '../api';
+import { NotificationPost } from "../types";
 
 export default function LatestRecordsScreen() {
-    return (
-        <View style={styles.container}>
-        <LinearGradient
-        // Button Linear Gradient
-        colors={['#a7ff83', '#17b978','#a7ff83']}
-        style={styles.circle}>
-        </LinearGradient>
-        <LinearGradient
-        // Button Linear Gradient
-        colors={['#071a52','#071a52' , '#086972', '#17b978', '#a7ff83']}
-        style={styles.circle2}>
-        </LinearGradient>
-        <Text style={styles.lostText}> Latest Records </Text>
-  
-        <View style={styles.container2}>
-          </View>
-            <View style={styles.rectangle}>
-                <Text> Text info </Text>
-            </View>
+    const [latestRecords, setLatestRecords] = useState<NotificationPost[]>([]);
 
+    useEffect(() => {
+
+        (async () => {
+            const response = await api.post.getLatestPosts();
+            setLatestRecords([...response]);
+        })();
+    }, []);
+
+    return (
+        <View style={ styles.container }>
+            <LinearGradient
+                // Button Linear Gradient
+                colors={ ['#a7ff83', '#17b978', '#a7ff83'] }
+                style={ styles.circle }>
+            </LinearGradient>
+            <LinearGradient
+                // Button Linear Gradient
+                colors={ ['#071a52', '#071a52', '#086972', '#17b978', '#a7ff83'] }
+                style={ styles.circle2 }>
+            </LinearGradient>
+            <Text style={ styles.lostText }> Latest Records </Text>
+
+            <View style={ styles.container2 }>
+            </View>
+            { latestRecords.map((latestRecord, index) =>
+                <View style={ styles.rectangle } key={ index }>
+                    <Text> { latestRecord.title }</Text>
+                    <Text> { latestRecord.description }</Text>
+                </View>
+            ) }
         </View>
     );
 }
@@ -35,7 +49,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: 20,
         top: -100,
-      },
+    },
     circle: {
         width: 500,
         height: 400,
@@ -44,8 +58,8 @@ const styles = StyleSheet.create({
         transform: [{ scaleY: 2 }],
         position: 'absolute',
         top: 20
-     },
-     circle2: {
+    },
+    circle2: {
         width: 490,
         height: 600,
         borderRadius: 200,
@@ -53,12 +67,12 @@ const styles = StyleSheet.create({
         transform: [{ scaleY: 2 }],
         position: 'absolute',
         top: 0
-     },
+    },
     container: {
-      flex: 1,
-      backgroundColor: '#ffffff',
-      alignItems: 'center',
-      justifyContent: 'center',
+        flex: 1,
+        backgroundColor: '#ffffff',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     container2: {
         flex: 1,
@@ -66,60 +80,60 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute'
-      },
-    logo:{
-      width: 240,
-      height: 194,
-      position: 'absolute',
-      top: -200
     },
-    inputView:{
-      width:"80%",
-      backgroundColor:"#086972",
-      borderRadius:25,
-      height:50,
-      marginBottom:20,
-      justifyContent:"center",
-      padding:20
+    logo: {
+        width: 240,
+        height: 194,
+        position: 'absolute',
+        top: -200
     },
-    inputText:{
-      height:50,
-      color:"white"
+    inputView: {
+        width: "80%",
+        backgroundColor: "#086972",
+        borderRadius: 25,
+        height: 50,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
     },
-    forgot:{
-      color:"white",
-      fontSize:11
+    inputText: {
+        height: 50,
+        color: "white"
     },
-    loginBtn:{
-      width:"50%",
-      backgroundColor:"#ffffff",
-      borderRadius:25,
-      height:50,
-      alignItems:"center",
-      justifyContent:"center",
-      marginTop:40,
-      marginBottom:10
+    forgot: {
+        color: "white",
+        fontSize: 11
     },
-    contBtn:{
-        width:"50%",
-        backgroundColor:"#a7ff83",
-        borderRadius:25,
-        height:50,
-        alignItems:"center",
-        justifyContent:"center",
+    loginBtn: {
+        width: "50%",
+        backgroundColor: "#ffffff",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 40,
+        marginBottom: 10
+    },
+    contBtn: {
+        width: "50%",
+        backgroundColor: "#a7ff83",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
         position: 'absolute',
         top: 70
-      },
-    lostText:{
-      color:"#ffffff",
-      top: 20,
-      fontSize: 20,
-      position: "absolute",
-      fontWeight: 'bold'
     },
-    continue:{
+    lostText: {
+        color: "#ffffff",
+        top: 20,
+        fontSize: 20,
+        position: "absolute",
+        fontWeight: 'bold'
+    },
+    continue: {
         fontSize: 16,
-        color:"#086972",
+        color: "#086972",
         fontWeight: 'bold'
     }
-  });
+});
