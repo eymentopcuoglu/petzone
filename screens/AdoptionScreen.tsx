@@ -36,8 +36,8 @@ export default function AdoptionScreen() {
             </View>
             { adoptionPosts.map((adoptionPost, index) =>
                 <View style={ styles.rectangle } key={ index }>
-                    <Text> { adoptionPost.title } </Text>
-                    <Text> { adoptionPost.description } </Text>
+                    <Text style={ styles.title }> { adoptionPost.title } </Text>
+                    <Text style={ styles.descript }> { adoptionPost.description } </Text>
                 </View>
             ) }
         </View>
@@ -46,11 +46,7 @@ export default function AdoptionScreen() {
 
 const styles = StyleSheet.create({
     rectangle: {
-        width: 350,
-        height: 200,
-        backgroundColor: '#ffffff',
-        borderRadius: 20,
-        top: -100,
+        width: 350, height: 100, backgroundColor: '#ffffff', borderRadius: 20, top: -100, marginBottom: 30
     },
     circle: {
         width: 500,
@@ -137,5 +133,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "#086972",
         fontWeight: 'bold'
+    },
+    title: {
+        fontSize: 16, color: "#086972", fontWeight: 'bold', top: 10, left: 5
+    }
+    , descript: {
+        fontSize: 12, color: "black", top: 10, left: 5
     }
 });
