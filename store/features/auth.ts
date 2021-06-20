@@ -60,7 +60,6 @@ export const authSlice = createSlice({
         });
         builder.addCase(register.fulfilled, (state, action) => {
             state.status = Status.SUCCEEDED;
-            action.payload.navigation.navigate('Login');
         });
         builder.addCase(register.rejected, (state, action) => {
             state.status = Status.FAILED;

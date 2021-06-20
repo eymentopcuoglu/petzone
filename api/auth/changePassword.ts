@@ -1,7 +1,7 @@
 import { API_URL } from '../../constants';
 
 export default async function changePassword(newPassword: string, userId: number, token: string) {
-    const response = await fetch(API_URL + '/auth/change_password', {
+    const response = await fetch(API_URL + '/auth/change-password', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

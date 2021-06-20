@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -33,6 +33,11 @@ export default function SignUpScreen({ navigation }: any) {
         }
 
     }
+
+    useEffect(() => {
+        if (status === Status.SUCCEEDED)
+            navigation.navigate('Login');
+    })
 
     return (
         <View style={ styles.container }>

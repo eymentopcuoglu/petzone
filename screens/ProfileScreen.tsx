@@ -29,6 +29,11 @@ export default function ProfileScreen({ navigation }: any) {
                                 source={ { uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gnome-stock_person.svg/1200px-Gnome-stock_person.svg.png' } }
                                 style={ styles.photo } />
                         </View>
+                        { !user.isVerified &&
+                        <View>
+                            <Text style={ styles.personText }> Your email is not verified! Please check your email and
+                                verify by clicking the link </Text>
+                        </View> }
                         <View>
                             <Text style={ styles.personText }> { user.name + ' ' + user.surname } </Text>
                         </View>

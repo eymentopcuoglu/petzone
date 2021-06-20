@@ -14,8 +14,9 @@ export default function ChangePassword() {
     const onPressHandler = async () => {
         if (password === passwordVerification) {
             try {
+                console.log(password)
                 const response = await api.auth.changePassword(password, user.id, token);
-                console.log('SUCCESSS!');
+                console.log(response);
             } catch (e) {
                 Alert.alert('Error', 'Please try again');
             }

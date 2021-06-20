@@ -1,8 +1,22 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useState } from "react";
+import api from "../api";
 
 export default function ForgotPasswordScreen({ navigation }: any) {
+
+    const [email, setEmail] = useState<string>('');
+
+    const onPressHandler = async () => {
+        try {
+            await api.auth.forgotPassword(email);
+            Alert.alert('Success', 'Successfully sent the email!');
+        } catch (e) {
+            Alert.alert('Error', 'Please try again');
+            console.log(e);
+        }
+    }
 
     return (
         <View style={ styles.container }>
@@ -27,9 +41,11 @@ export default function ForgotPasswordScreen({ navigation }: any) {
                         style={ styles.inputText }
                         placeholder="Email:"
                         placeholderTextColor="#ffffff"
+                        value={ email }
+                        onChangeText={ email => setEmail(email) }
                     />
                 </View>
-                <TouchableOpacity style={ styles.loginBtn }>
+                <TouchableOpacity style={ styles.loginBtn } onPress={ onPressHandler }>
                     <Text style={ styles.loginText }>Send email</Text>
                 </TouchableOpacity>
 
