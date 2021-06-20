@@ -38,12 +38,14 @@ export default function AdoptionScreen({ navigation }: any) {
             </LinearGradient>
             <Text style={ styles.lostText }> Adoption </Text>
 
-            <TouchableOpacity style={ styles.contBtn }
-                              onPress={ () => navigation.navigate('CreatePost', { fetchPosts }) }>
-                <Text style={ styles.continue }>Create a Post</Text>
-            </TouchableOpacity>
 
             <Content>
+
+                <TouchableOpacity style={ styles.contBtn }
+                                  onPress={ () => navigation.navigate('CreatePost') }>
+                    <Text style={ styles.continue }>Create a Post</Text>
+                </TouchableOpacity>
+
                 { adoptionPosts.map((adoptionPost, index) =>
                     <Card style={ { flex: 0, width: 380, top: 180, height: 360, marginBottom: 50 } } key={ index }>
                         <CardItem>
