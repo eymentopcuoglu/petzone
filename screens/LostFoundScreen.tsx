@@ -6,7 +6,7 @@ import { Grid } from 'react-native-easy-grid';
 import { ImagedPost } from "../types";
 import api from "../api";
 
-export default function LostFoundScreen() {
+export default function LostFoundScreen({ navigation }: any) {
     const [lostAndFoundPosts, setLostAndFoundPosts] = useState<ImagedPost[]>([]);
 
     useEffect(() => {
@@ -28,12 +28,19 @@ export default function LostFoundScreen() {
                 colors={ ['#071a52', '#071a52', '#086972', '#17b978', '#a7ff83'] }
                 style={ styles.circle2 }>
             </LinearGradient>
+
             <Text style={ styles.lostText }> Lost & Found </Text>
-            <TouchableOpacity style={ styles.contBtn }>
-                <Text style={ styles.continue }>Create a Post</Text>
-            </TouchableOpacity>
+
 
             <Content>
+
+                <TouchableOpacity style={ styles.contBtn } onPress={ () => navigation.navigate('CreatePost') }>
+                    <Text style={ styles.continue }>Create a Post</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={ styles.contBtn } onPress={ () => navigation.navigate('CreatePost') }>
+                    <Text style={ styles.continue }>Create a Post</Text>
+                </TouchableOpacity>
                 { lostAndFoundPosts.map(lostAndFoundPost =>
                     <Card style={ { flex: 0, width: 380, top: 180, height: 360, marginBottom: 50 } }>
                         <CardItem>
@@ -58,13 +65,13 @@ export default function LostFoundScreen() {
                             </Grid>
                         </CardItem>
 
-                        <CardItem style={{ marginBottom: -10 }}>
-                            <Text style={{fontWeight: "bold", fontSize: 16}}>
+                        <CardItem style={ { marginBottom: -10 } }>
+                            <Text style={ { fontWeight: "bold", fontSize: 16 } }>
                                 { lostAndFoundPost.description }
                             </Text>
                         </CardItem>
                         <CardItem>
-                            <Text style={{ fontSize: 13}}>
+                            <Text style={ { fontSize: 13 } }>
                                 { lostAndFoundPost.title }
                             </Text>
                         </CardItem>

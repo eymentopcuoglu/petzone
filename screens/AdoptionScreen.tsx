@@ -6,7 +6,7 @@ import { Grid } from 'react-native-easy-grid';
 import { ImagedPost } from "../types";
 import api from "../api";
 
-export default function LostFoundScreen() {
+export default function AdoptionScreen({ navigation }: any) {
     const [adoptionPosts, setAdoptionPosts] = useState<ImagedPost[]>([]);
 
     useEffect(() => {
@@ -29,11 +29,11 @@ export default function LostFoundScreen() {
                 style={ styles.circle2 }>
             </LinearGradient>
             <Text style={ styles.lostText }> Adoption </Text>
-            
-            <TouchableOpacity style={ styles.contBtn }>
+
+            <TouchableOpacity style={ styles.contBtn } onPress={ () => navigation.navigate('CreatePost') }>
                 <Text style={ styles.continue }>Create a Post</Text>
             </TouchableOpacity>
-            
+
             <Content>
                 { adoptionPosts.map(adoptionPost =>
                     <Card style={ { flex: 0, width: 380, top: 180, height: 360, marginBottom: 50 } }>
@@ -59,13 +59,13 @@ export default function LostFoundScreen() {
                             </Grid>
                         </CardItem>
 
-                        <CardItem style={{ marginBottom: -10 }}>
-                            <Text style={{fontWeight: "bold", fontSize: 16}}>
+                        <CardItem style={ { marginBottom: -10 } }>
+                            <Text style={ { fontWeight: "bold", fontSize: 16 } }>
                                 { adoptionPost.description }
                             </Text>
                         </CardItem>
                         <CardItem>
-                            <Text style={{ fontSize: 13}}>
+                            <Text style={ { fontSize: 13 } }>
                                 { adoptionPost.title }
                             </Text>
                         </CardItem>
