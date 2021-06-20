@@ -65,8 +65,6 @@ const TestDrawer = () => {
             <Drawer.Screen name="Latest Records" component={ LatestRecordsScreen } />
             <Drawer.Screen name="Emergency" component={ EmergencyScreen } />
             <Drawer.Screen name="Create Post" component={ CreatePostScreen } />
-            <Drawer.Screen name="Edit Profile" component={ EditProfileScreen } />
-            <Drawer.Screen name="Change Password" component={ ChangePassword } />
         </Drawer.Navigator>
     )
 }
@@ -86,6 +84,8 @@ function RootNavigator() {
                 <>
                     <Stack.Screen name='Drawer' component={ TestDrawer } />
                     <Stack.Screen name='Profile' component={ ProfileScreen } />
+                    <Stack.Screen name="Edit Profile" component={ EditProfileScreen } />
+                    <Stack.Screen name="Change Password" component={ ChangePassword } />
                 </>
             ) : (
                 <>

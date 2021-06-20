@@ -44,11 +44,19 @@ export default function ProfileScreen({ navigation }: any) {
                             <Text style={ styles.phoneText }> Phone: { user.phoneNumber } </Text>
                         </View>
                         <View>
-                            <TouchableOpacity style={ styles.contBtn }>
+                            <TouchableOpacity style={ styles.contBtn }
+                                              onPress={ () => navigation.push('Edit Profile') }>
                                 <Text style={ styles.continue }>Edit Profile</Text>
                             </TouchableOpacity>
-
                         </View>
+
+                        <View>
+                            <TouchableOpacity style={ styles.changePasswordButton }
+                                              onPress={ () => navigation.push('Change Password') }>
+                                <Text style={ styles.continue }>Change Password</Text>
+                            </TouchableOpacity>
+                        </View>
+
                         <View>
                             <Text style={ {
                                 color: '#ffffff',
@@ -233,5 +241,14 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         top: -218,
         left: 100
+    },
+    changePasswordButton: {
+        marginTop: 50,
+        width: "50%",
+        backgroundColor: "#a7ff83",
+        borderRadius: 25,
+        height: 35,
+        alignItems: "center",
+        justifyContent: "center"
     }
 });
