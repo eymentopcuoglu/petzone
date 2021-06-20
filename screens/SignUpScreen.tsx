@@ -80,7 +80,7 @@ export default function SignUpScreen({ navigation }: any) {
                         <View style={ styles.inputViewName }>
                             <View style={ styles.inputView }>
                                 <TextInput
-                                    secureTextEntry={ true }
+                                    secureTextEntry={ false }
                                     style={ styles.inputText }
                                     placeholder="Email:"
                                     placeholderTextColor="#ffffff"
@@ -89,7 +89,7 @@ export default function SignUpScreen({ navigation }: any) {
                             </View>
                             <View style={ styles.inputView }>
                                 <TextInput
-                                    secureTextEntry={ true }
+                                    secureTextEntry={ false }
                                     style={ styles.inputText }
                                     placeholder="Phone Number:"
                                     placeholderTextColor="#ffffff"
