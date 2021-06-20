@@ -40,7 +40,7 @@ export default function DonationScreen() {
 
 const styles = StyleSheet.create({
         rectangle: {
-            width: 350, height: 200, backgroundColor: '#ffffff', borderRadius: 20, top: -100,
+            width: 350, height: 100, backgroundColor: '#ffffff', borderRadius: 20, top: -100, marginBottom: 30
         }
         , circle: {
             width: 500, height: 400, borderRadius: 200, opacity: 0.39, transform: [{
@@ -102,13 +102,13 @@ const styles = StyleSheet.create({
             color: "#ffffff", top: 20, fontSize: 20, position: "absolute", fontWeight: 'bold'
         }
         , continue: {
-            fontSize: 16, color: "#086972", fontWeight: 'bold'
+            fontSize: 16, color: "#086972", fontWeight: 'bold', top: 10, left: 5
         }
         , phone: {
-            fontSize: 12, color: "black",
+            fontSize: 12, color: "black", top: 10, left: 5
         }
         , address: {
-            fontSize: 12, color: "black",
+            fontSize: 12, color: "black", top: 10, left: 5
         }
     }
 );
