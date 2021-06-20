@@ -17,7 +17,7 @@ export default async function createNotificationPost(userIdentifier: number, des
     const response = await fetch(API_URL + '/posts', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
             'authorization': 'Bearer ' + token
         },
         body
