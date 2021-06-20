@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Dimensions, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import MapView, { Circle, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useEffect, useState, useRef } from "react";
 import BottomSheet from 'reanimated-bottom-sheet';
@@ -9,6 +9,7 @@ import * as Location from 'expo-location';
 import api from '../api';
 import { NotificationPost } from "../types";
 import BottomSheetHeader from "../components/home/BottomSheetHeader";
+import LoginScreen from "./LoginScreen";
 
 type CircleProp = {
     latitude: number,
@@ -24,6 +25,8 @@ export default function HomeScreen() {
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const [errorMsg, setErrorMsg] = useState<string>('');
 
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
     const sheetRef = useRef<BottomSheetBehavior>(null);
     const mapRef = useRef<MapView>(null);
 
@@ -32,8 +35,12 @@ export default function HomeScreen() {
             sheetRef.current.snapTo(0);
     }
 
-    useEffect(() => {
+    const addNewPost = (post: NotificationPost) => {
+        setNotificationPosts([...notificationPosts, post]);
+    }
 
+    useEffect(() => {
+        setIsLoading(true);
         // Get the location of the user and animate towards it
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
@@ -44,55 +51,66 @@ export default function HomeScreen() {
 
             let location = await Location.getCurrentPositionAsync({});
             setLocation(location);
-            if (mapRef && mapRef.current)
-                mapRef.current.animateToRegion({
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
-                    latitudeDelta: 0.001,
-                    longitudeDelta: 0.001,
-                }, 1000);
+            // if (mapRef && mapRef.current)
+            //     mapRef.current.animateToRegion({
+            //         latitude: location.coords.latitude,
+            //         longitude: location.coords.longitude,
+            //         latitudeDelta: 0.001,
+            //         longitudeDelta: 0.001,
+            //     }, 1000);
 
             const notificationPosts = await api.post.getNotificationPosts();
             setNotificationPosts([...notificationPosts]);
+            setIsLoading(false);
         })();
+
     }, []);
 
     return (
         <>
-            <View style={ styles.container }>
-                <MapView provider={ PROVIDER_GOOGLE }
-                         style={ styles.map }
-                         ref={ mapRef }
-                         showsUserLocation={ true }
-                         showsMyLocationButton={ true }
-                         initialRegion={ {
-                             latitude: 47.4962647,
-                             longitude: 19.0674436,
-                             latitudeDelta: 0.001,
-                             longitudeDelta: 0.001,
-                         } }>
-                    { notificationPosts?.map((notificationPost, index) => <Circle
-                        key={ index }
-                        center={ { latitude: notificationPost.latitude, longitude: notificationPost.longitude } }
-                        radius={ 50 }
-                        fillColor='rgba(0,255,0,0.2)' />
-                    ) }
-                </MapView>
-                <TouchableOpacity
-                    style={ styles.notifyButton }
-                    onPress={ onPressHandler }
-                >
-                    <Text style={ styles.notifyButtonText }>Notify</Text>
-                </TouchableOpacity>
-            </View>
-            <BottomSheet
-                // @ts-ignore
-                ref={ sheetRef }
-                snapPoints={ [500, 250, 0] }
-                renderContent={ () => <NotificationForm location={ location } /> }
-                renderHeader={ BottomSheetHeader }
-                initialSnap={ 2 }
-            />
+            {
+                isLoading || location === null ? <ActivityIndicator /> :
+                    <>
+                        <View style={ styles.container }>
+                            <MapView provider={ PROVIDER_GOOGLE }
+                                     style={ styles.map }
+                                     ref={ mapRef }
+                                     showsUserLocation={ true }
+                                     showsMyLocationButton={ true }
+                                     initialRegion={ {
+                                         latitude: location.coords.latitude,
+                                         longitude: location.coords.longitude,
+                                         latitudeDelta: 0.001,
+                                         longitudeDelta: 0.001,
+                                     } }>
+                                { notificationPosts?.map((notificationPost, index) => <Circle
+                                    key={ index }
+                                    center={ {
+                                        latitude: notificationPost.latitude,
+                                        longitude: notificationPost.longitude
+                                    } }
+                                    radius={ 100 }
+                                    strokeColor={ '#FFFFFF' }
+                                    fillColor={ 'rgba(0,255,0,0.2)' } />
+                                ) }
+                            </MapView>
+                            <TouchableOpacity
+                                style={ styles.notifyButton }
+                                onPress={ onPressHandler }
+                            >
+                                <Text style={ styles.notifyButtonText }>Notify</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <BottomSheet
+                            // @ts-ignore
+                            ref={ sheetRef }
+                            snapPoints={ [500, 250, 0] }
+                            renderContent={ () => <NotificationForm location={ location } addNewPost={ addNewPost } /> }
+                            renderHeader={ BottomSheetHeader }
+                            initialSnap={ 2 }
+                        />
+                    </>
+            }
         </>
     );
 }

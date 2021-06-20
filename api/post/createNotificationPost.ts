@@ -1,8 +1,9 @@
 import { API_URL } from '../../constants';
+import { NotificationPost } from "../../types";
 
 export default async function createNotificationPost(userIdentifier: number, description: string, title: string, petType: string,
                                                      postType: string, longitude: number, latitude: number,
-                                                     noOfPets: number, token: string) {
+                                                     noOfPets: number, token: string): Promise<NotificationPost> {
     const body = new FormData();
     body.append('userIdentifier', '' + userIdentifier);
     body.append('description', description);

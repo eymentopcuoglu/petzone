@@ -1,6 +1,7 @@
 import { API_URL } from '../../constants';
+import { LoginResponse } from "../../types";
 
-export default async function login(email: string, password: string) {
+export default async function login(email: string, password: string): Promise<LoginResponse> {
     const response = await fetch(API_URL + '/auth/login', {
         method: 'POST',
         headers: {

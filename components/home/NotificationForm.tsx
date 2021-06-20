@@ -7,23 +7,25 @@ import api from '../../api';
 import { useAppSelector } from "../../hooks";
 
 type NotificationFormProps = {
-    location: Location.LocationObject | null
+    location: Location.LocationObject | null,
+    addNewPost: Function
 }
 
-export default function NotificationForm({ location }: NotificationFormProps) {
+export default function NotificationForm({ location, addNewPost }: NotificationFormProps) {
     const [postType, setPostType] = useState<'Food' | 'Water' | 'Food and Water' | 'Need of help' | ''>('');
     const [noOfPets, setNoOfPets] = useState<number>(0);
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [petType, setPetType] = useState<string>('');
 
-    const { isAuthenticated, userId, token } = useAppSelector(state => state.auth);
+    const { isAuthenticated, user, token } = useAppSelector(state => state.auth);
 
     const handleSubmit = async () => {
         if (isAuthenticated) {
             if (location) {
                 try {
-                    const response = await api.post.createNotificationPost(userId, description, title, petType, postType, location.coords.longitude, location.coords.latitude, noOfPets, token);
+                    const post = await api.post.createNotificationPost(user.id, description, title, petType, postType, location.coords.longitude, location.coords.latitude, noOfPets, token);
+                    addNewPost(post);
                 } catch (e) {
                     Alert.alert('Error', 'Please try again');
                 }
